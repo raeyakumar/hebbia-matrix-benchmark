@@ -1,6 +1,28 @@
 # Right Quote, Wrong Answer? Testing AI on Financial Filings
 
-**📄 Paper (PDF, 4 pages): [paper/paper.pdf](paper/paper.pdf)** · source: [paper/paper.md](paper/paper.md)
+**Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 4 pages)](paper/paper.pdf) · [source](paper/paper.md)
+
+**The question I wanted to answer.** I wanted to know whether an AI model answers questions about financial
+filings more reliably when it looks at one company at a time instead of several companies at once. Hebbia's Matrix
+organizes this kind of work as a grid, with one row per document and one column per question, which made me curious
+whether filling that grid one row at a time actually makes the answers more trustworthy.
+
+**Why I expected one company at a time to help.** When the model reads passages from five 10-Ks in a single
+request, it could mix up which passage belongs to which company, or take a number from the wrong year's column.
+Giving it only one company's passages at a time seemed like it should remove that confusion.
+
+**How the test worked.** The model never reads a whole 10-K. For each question, a search step pulls the five most
+relevant passages from each company's filing, and the model has to answer using only those passages and copy the
+exact sentence or table row its number came from. Both setups received the same passages, the same instructions and
+the same model (Gemini 3.8 Flash), so the only difference was whether the companies were asked about together or
+separately. An answer only counted as **verified** if the number was right, the quote really appeared in the
+passage, and the quote actually supported that number for the right company, year and unit.
+
+**What actually happened.** The company-by-company setup did not help. Both setups gave the same number for all 75
+company-question pairs, and neither reported a wrong number. Under the scoring rules I locked in before the run,
+asking about all five companies at once verified 70 of 75 answers, and asking one at a time verified 69 while
+costing about 7% more. What was harder than getting the right number was checking the citation: most of the misses
+came from the automatic citation checker, not from the model.
 
 > **An independent project inspired by Hebbia.** It builds on Hebbia's public description of its Matrix workflow
 > (one row per document, one cell per question). It is not affiliated with, sponsored by or endorsed by Hebbia, and
@@ -9,24 +31,25 @@
 **Status: complete (final run 2026-11-22).** Every number below comes from saved output in `results/`. The
 benchmark was frozen in commit `bdebd2a` before the experiment ran.
 
-**Research question.** When the same model receives the same evidence, does answering *one company at a time*
-raise the share of financial claims that are correct **and** supported by their citations? And what does each
-additional verified answer cost?
+## Methods
 
-## Design in one paragraph
-
-Five FY2025/26 Form 10-Ks (Apple, Microsoft, Alphabet, Meta, Amazon) are pulled from SEC EDGAR and converted to
-text that keeps table titles, unit lines, column years and footnotes. For each question, BM25 selects 5 excerpts per
-company **once**, and those excerpts are frozen to `benchmark/evidence/<qid>.json`. **Method A** sends every company's
-excerpts in one call and asks for one row per company. **Method B** sends each company's identical excerpts in its own
-call, then the rows are combined. Both methods use the same model, settings, system instruction, JSON schema,
-company names and checker. Each answer is scored on three separate checks: *correct* (matches the answer key),
-*quote check* (quote is verbatim in the cited excerpt) and *support check* (the quote actually backs the claimed
-value for the right company, period and unit). An answer counts as **verified** only if all three pass.
+Five FY2025/26 Form 10-Ks (Apple, Microsoft, Alphabet, Meta, Amazon) are downloaded from SEC EDGAR and converted to
+text that keeps table titles, unit lines, column years and footnotes. For each question, a keyword search (BM25)
+selects 5 passages per company **once**, and those passages are frozen to `benchmark/evidence/<qid>.json`.
+**Method A** sends every company's passages in one request and asks for one row per company. **Method B** sends each
+company's identical passages in its own request, and the rows are then combined. Both methods use the same model,
+settings, instructions, output format, company names and checker. Each answer gets three separate checks: *correct*
+(matches the answer key), *quote check* (the quote appears word for word in the cited passage) and *support check*
+(the quote actually backs the claimed number for the right company, period and unit). An answer counts as
+**verified** only if all three pass. The follow-up review of the 9 citations the automatic checker could not confirm
+was AI-assisted: Claude Code compared each quote with the original SEC filing, so it is not an independent human
+review.
 
 ## Results
 
-The final run made 90 calls on `gemini-3.8-flash` (15 for A, 75 for B), with 0 errors. 75 paired company × question cells:
+The final test ran once, with 90 requests to `gemini-3.8-flash` (15 for the all-at-once setup, Method A, and 75
+for the one-at-a-time setup, Method B), and none of them failed. Each row below counts how many of the 75
+company-question pairs were verified.
 
 | Scoring tier | A verified | B verified | Both | Only A | Only B | Neither |
 |---|---|---|---|---|---|---|
@@ -34,35 +57,45 @@ The final run made 90 calls on `gemini-3.8-flash` (15 for A, 75 for B), with 0 e
 | 2. + AI-assisted support review* | 72 | 72 | 72 | 0 | 0 | 3 |
 | 3. + one answer-key rounding fix* | 73 | 73 | 73 | 0 | 0 | 2 |
 
-**Tier 1 is the main result.** \*Tiers 2 and 3 are secondary. They use an **AI-assisted review**, not independent
-human verification, of the 9 citations the automatic support check could not confirm, made against the original
-SEC HTML: 7 supported and 2 inconclusive (Alphabet T1, both methods). Inconclusive cells are not counted as verified.
-The evidence for each cell is quoted in [`results/final/citation_review.md`](results/final/citation_review.md); the
-verdicts are in [`results/final/adjudication.csv`](results/final/adjudication.csv).
+**The first row is the main result.** It comes from the scoring rules I locked in before the run, so nothing in it
+was adjusted after the answers came in. \*The second and third rows are later, secondary checks. For the second row, the
+AI-assisted review described in Methods found 7 of the 9 flagged citations supported and 2 inconclusive
+(Alphabet T1, in both setups), and inconclusive cells are not counted as verified. The third row also corrects one rounding mistake in the
+answer key. The quoted evidence for each of the 9 cells is in
+[`results/final/citation_review.md`](results/final/citation_review.md), and the verdicts are in
+[`results/final/adjudication.csv`](results/final/adjudication.csv).
 
-- **Same answers.** The two methods gave the same number in all 75 cells. The only differences were capex sign
-  conventions and number formatting. Neither method made a numerically wrong claim.
-- **Trick questions, reported separately.** Both methods were correct on 25/25 trap cells and verified on 23/25
-  (tier 1). They read Meta's U.S.-only revenue ($74.78B) from a footnote, Apple's share count in thousands and prior-year
-  columns correctly, and abstained correctly where no credit facility exists.
-- **Abstentions.** 4 per method: 3 correct (T5) and 1 wrong (Alphabet F2, caused by our own question wording; see
-  the paper). Abstaining on an answerable cell counts as wrong.
-- **Cost.** Estimated from API token counts × list price: A $0.185, B $0.198 (+6.9%). A used 12,720 prompt tokens
-  per call; B used 2,823 per call, five calls per question.
-- **Cost per additional verified answer: not computed.** B never produced an additional verified answer. Under
-  tier 1, A has one more and is also cheaper; under tiers 2 and 3 the methods tie.
-- **Mostly the checker failed, not the model.** Of the 9 cells the automatic support check failed or marked unclear,
-  7 were supported; the checker missed them because of mixed-column table headers and one unit phrasing. The other
-  2 (Alphabet T1) give the right number, but the cited table's unit is stated only in a neighbouring excerpt.
+- **Same answers.** Both setups gave the same number in all 75 cells. The only differences were whether capital
+  spending was written as a negative number and how numbers were formatted. Neither setup reported a wrong number.
+- **Trick questions, reported separately.** The five trick questions were designed to catch specific mistakes, so I
+  report them on their own. Both setups answered all 25 trick cells correctly and verified 23 of 25 under the main
+  scoring. For example, both read Meta's U.S.-only revenue ($74.78B) from a footnote instead of the "United States
+  and Canada" row, read Apple's share count in thousands, picked the prior-year column when the question asked for
+  fiscal 2025, and correctly said there was not enough evidence when a company has no credit facility.
+- **Abstentions.** An "insufficient evidence" answer counted as correct only if the answer key expected
+  it, and as wrong otherwise. Each setup abstained 4 times: 3 were correct (T5) and 1 was wrong
+  (Alphabet F2). That one was caused by the question's wording, not by the model (see the paper).
+- **Cost.** Based on API token counts and Google's list prices, the all-at-once setup cost an estimated $0.185 and
+  the one-at-a-time setup cost $0.198, about 6.9% more. The difference comes from repeating the instructions: A used
+  about 12,720 prompt tokens per request, while B used about 2,823 per request but needed five requests per question.
+- **Cost per additional verified answer: not calculated.** This number only makes sense when the more expensive
+  setup produces extra verified answers, and it never did. Under the main scoring, the cheaper all-at-once setup has
+  the one extra verified answer, and under the secondary checks the two setups tie.
+- **Mostly the checker failed, not the model.** Of the 9 cells the automatic checker failed or marked unclear, 7
+  turned out to be supported. The checker missed them because of tables that mix year columns with "$ Change |
+  % Change" columns, and because of one unit phrase it did not recognize. The other 2 (Alphabet T1) have the right
+  number, but the table they cite states its unit only in a neighboring passage.
 
-**Bottom line:** at five companies and about 12.7k prompt tokens per call, answering one company at a time bought
-nothing. Batching was about 7% cheaper.
+**Overall,** with five companies and about 12,700 prompt tokens per request, asking about one company at a time did
+not make the answers more accurate, and asking about all five at once was about 7% cheaper.
 
-## Matched-pair example (real output)
+## A matched-pair example (real output)
 
-F9 asks how much stock was repurchased during the year; F10 asks how much authorization remains. Both questions
-receive identical evidence. Meta's 10-K (excerpt `META-0229`) puts both numbers in adjacent sentences, so a real
-quote could support either one. Both methods separated them correctly:
+The benchmark includes a matched pair of questions. F9 asks how much stock a company bought back during the year,
+and F10 asks how much it is still allowed to buy back. Both questions receive the same passages, and in Meta's 10-K
+(excerpt `META-0229`) the two numbers sit in back-to-back sentences. This means a real quote could support either
+number, so a quote check alone could not tell a right answer from a swapped one. Both setups kept them apart
+correctly:
 
 | | Method A | Method B |
 |---|---|---|
@@ -82,7 +115,7 @@ src/
   prompts.py           the single shared instruction + JSON schema
   run_benchmark.py     Method A / Method B runner; logs raw output, tokens, latency, errors
   score.py             normalization, quote check, support check, paired tables, cost per verified answer
-  build_answer_key.py  hand-written answer-key spec -> benchmark/answer_key.csv
+  build_answer_key.py  answer-key spec (AI-drafted from the filings, reviewed by me) -> benchmark/answer_key.csv
   validate_key.py      verifies every key passage is verbatim in the filing and inside the evidence
   make_review.py       renders benchmark/ANSWER_KEY_REVIEW.md
   check_setup.py       confirms the API key is set (never prints it) and lists models
@@ -152,11 +185,13 @@ A run resumes from `calls.jsonl`. Failed calls stay in the log as error records,
 
 ## Known limitations
 
-- Five companies × 15 questions = 75 paired units, too few for strong statistical claims. The paired table and
-  exact counts will be reported, not just percentages.
-- Temperature is 0, but Gemini outputs are not guaranteed to be deterministic. Each condition runs once.
-- The support check is automated. Cells it cannot decide are marked `unclear` and listed for human review, not
-  passed silently.
-- Answer-key judgment calls are listed in `benchmark/ANSWER_KEY_REVIEW.md` §2. Two key defects were found after the run
-  (a rounded Microsoft value and an over-specified Alphabet F2 question); both are disclosed in the paper.
-- Human verification time was not measured and is not reported.
+- With five companies and 15 questions, there are only 75 paired answers, which is too few for strong statistical
+  claims, so I report exact counts instead of only percentages.
+- The temperature was set to 0, but Gemini's outputs are not guaranteed to be identical every time, and each setup
+  ran only once.
+- The support check is automated. When it cannot decide, it marks the cell `unclear` instead of passing it, and
+  those cells were reviewed separately with AI assistance.
+- The judgment calls in the answer key are listed in `benchmark/ANSWER_KEY_REVIEW.md` §2. Two problems with the key
+  were found after the run (a rounded Microsoft value and an over-specified Alphabet F2 question), and both are
+  disclosed in the paper.
+- I did not measure how long human verification would take, so that is not reported.
