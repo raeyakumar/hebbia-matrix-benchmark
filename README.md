@@ -1,14 +1,17 @@
 # Right Quote, Wrong Answer? Testing AI on Financial Filings
 
-> **Status: complete (final run 2026-11-22).** Every number below comes from saved output in `results/`.
-> Paper: [`paper/paper.pdf`](paper/paper.pdf) (source: [`paper/paper.md`](paper/paper.md)).
+**📄 Paper (PDF, 4 pages): [paper/paper.pdf](paper/paper.pdf)** · source: [paper/paper.md](paper/paper.md)
+
+> **An independent project inspired by Hebbia.** It builds on Hebbia's public description of its Matrix workflow
+> (one row per document, one cell per question). It is not affiliated with, sponsored by or endorsed by Hebbia, and
+> it uses no Hebbia software or data. All filings are public SEC documents.
+
+**Status: complete (final run 2026-11-22).** Every number below comes from saved output in `results/`. The
+benchmark was frozen in commit `bdebd2a` before the experiment ran.
 
 **Research question.** When the same model receives the same evidence, does answering *one company at a time*
 raise the share of financial claims that are correct **and** supported by their citations? And what does each
 additional verified answer cost?
-
-This is an independent experiment inspired by the public description of Hebbia's Matrix workflow (one row per
-document, one cell per question). It is not affiliated with or endorsed by Hebbia.
 
 ## Design in one paragraph
 
@@ -99,7 +102,6 @@ results/               one folder per run: manifest, calls.jsonl (raw), scored_r
   final/citation_review.md  AI-assisted review of the 9 flagged citations, with quoted evidence
   final/adjudication.csv  verdicts used by the secondary tiers (src/adjudicate.py)
 paper/                 paper.md (editable source), paper.pdf, build_pdf.py
-drafts/                outreach email draft (local only, not sent)
 ```
 
 ## Reproduce
