@@ -3,7 +3,8 @@
 tier1_frozen      : scored_rows.csv exactly as the frozen src/score.py produced it
 tier2_support     : + support verdicts re-judged from the excerpts (results/<run>/adjudication.csv, field=support)
 tier3_key_fix     : + post-hoc correction of answer-key defects (field=correct)
-Adjudications were made by the AI assistant reading the excerpts and are flagged for human confirmation.
+Tier 2/3 judgments are an AI-assisted review (results/<run>/citation_review.md), not independent human
+verification. Tier 1 (frozen) is the main result. A support verdict of "inconclusive" is NOT counted as verified.
 
 Usage: python adjudicate.py results/final
 """

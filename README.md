@@ -28,16 +28,19 @@ The final run made 90 calls on `gemini-3.8-flash` (15 for A, 75 for B), with 0 e
 | Scoring tier | A verified | B verified | Both | Only A | Only B | Neither |
 |---|---|---|---|---|---|---|
 | 1. Frozen automatic scorer | 70 | 69 | 69 | 1 | 0 | 5 |
-| 2. + support verdicts re-read from excerpts* | 73 | 73 | 73 | 0 | 0 | 2 |
-| 3. + one answer-key rounding fix* | 74 | 74 | 74 | 0 | 0 | 1 |
+| 2. + AI-assisted support review* | 72 | 72 | 72 | 0 | 0 | 3 |
+| 3. + one answer-key rounding fix* | 73 | 73 | 73 | 0 | 0 | 2 |
 
-\*Tiers 2 and 3 are post-run re-readings by the AI assistant that ran the study. Each is recorded with its reason in
-[`results/final/adjudication.csv`](results/final/adjudication.csv) and is **flagged for human confirmation**.
+**Tier 1 is the main result.** \*Tiers 2 and 3 are secondary. They use an **AI-assisted review**, not independent
+human verification, of the 9 citations the automatic support check could not confirm, made against the original
+SEC HTML: 7 supported and 2 inconclusive (Alphabet T1, both methods). Inconclusive cells are not counted as verified.
+The evidence for each cell is quoted in [`results/final/citation_review.md`](results/final/citation_review.md); the
+verdicts are in [`results/final/adjudication.csv`](results/final/adjudication.csv).
 
 - **Same answers.** The two methods gave the same number in all 75 cells. The only differences were capex sign
   conventions and number formatting. Neither method made a numerically wrong claim.
 - **Trick questions, reported separately.** Both methods were correct on 25/25 trap cells and verified on 23/25
-  (tier 1). They read Meta's U.S.-only revenue from a footnote, Apple's share count in thousands and prior-year
+  (tier 1). They read Meta's U.S.-only revenue ($74.78B) from a footnote, Apple's share count in thousands and prior-year
   columns correctly, and abstained correctly where no credit facility exists.
 - **Abstentions.** 4 per method: 3 correct (T5) and 1 wrong (Alphabet F2, caused by our own question wording; see
   the paper). Abstaining on an answerable cell counts as wrong.
@@ -45,8 +48,9 @@ The final run made 90 calls on `gemini-3.8-flash` (15 for A, 75 for B), with 0 e
   per call; B used 2,823 per call, five calls per question.
 - **Cost per additional verified answer: not computed.** B never produced an additional verified answer. Under
   tier 1, A has one more and is also cheaper; under tiers 2 and 3 the methods tie.
-- **What failed was the checker.** The 9 cells that the automatic support check failed or marked unclear were all
-  supported on reading, because of mixed-column table headers and one unit phrasing the checker missed.
+- **Mostly the checker failed, not the model.** Of the 9 cells the automatic support check failed or marked unclear,
+  7 were supported; the checker missed them because of mixed-column table headers and one unit phrasing. The other
+  2 (Alphabet T1) give the right number, but the cited table's unit is stated only in a neighbouring excerpt.
 
 **Bottom line:** at five companies and about 12.7k prompt tokens per call, answering one company at a time bought
 nothing. Batching was about 7% cheaper.
@@ -92,7 +96,8 @@ data/
 tests/                 offline checker tests (no API calls)
 results/               one folder per run: manifest, calls.jsonl (raw), scored_rows.csv, summary.json
   results_final.csv    every cell, A and B side by side, all scoring tiers
-  final/adjudication.csv  post-run re-readings with reasons (flagged for human confirmation)
+  final/citation_review.md  AI-assisted review of the 9 flagged citations, with quoted evidence
+  final/adjudication.csv  verdicts used by the secondary tiers (src/adjudicate.py)
 paper/                 paper.md (editable source), paper.pdf, build_pdf.py
 drafts/                outreach email draft (local only, not sent)
 ```

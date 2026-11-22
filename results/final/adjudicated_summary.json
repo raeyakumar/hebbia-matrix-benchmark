@@ -29,24 +29,24 @@
  },
  "tier2_support": {
   "verified": {
-   "A": 73,
-   "B": 73
+   "A": 72,
+   "B": 72
   },
   "correct": {
    "A": 73,
    "B": 73
   },
   "paired_verified_all": {
-   "both": 73,
+   "both": 72,
    "only_A": 0,
    "only_B": 0,
-   "neither": 2
+   "neither": 3
   },
   "paired_verified_tricky": {
-   "both": 25,
+   "both": 24,
    "only_A": 0,
    "only_B": 0,
-   "neither": 0
+   "neither": 1
   },
   "paired_verified_nontricky": {
    "both": 48,
@@ -57,24 +57,24 @@
  },
  "tier3_key_fix": {
   "verified": {
-   "A": 74,
-   "B": 74
+   "A": 73,
+   "B": 73
   },
   "correct": {
    "A": 74,
    "B": 74
   },
   "paired_verified_all": {
-   "both": 74,
+   "both": 73,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 2
+  },
+  "paired_verified_tricky": {
+   "both": 24,
    "only_A": 0,
    "only_B": 0,
    "neither": 1
-  },
-  "paired_verified_tricky": {
-   "both": 25,
-   "only_A": 0,
-   "only_B": 0,
-   "neither": 0
   },
   "paired_verified_nontricky": {
    "both": 49,
