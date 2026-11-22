@@ -1,0 +1,86 @@
+{
+ "tier1_frozen": {
+  "verified": {
+   "A": 70,
+   "B": 69
+  },
+  "correct": {
+   "A": 73,
+   "B": 73
+  },
+  "paired_verified_all": {
+   "both": 69,
+   "only_A": 1,
+   "only_B": 0,
+   "neither": 5
+  },
+  "paired_verified_tricky": {
+   "both": 23,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 2
+  },
+  "paired_verified_nontricky": {
+   "both": 46,
+   "only_A": 1,
+   "only_B": 0,
+   "neither": 3
+  }
+ },
+ "tier2_support": {
+  "verified": {
+   "A": 73,
+   "B": 73
+  },
+  "correct": {
+   "A": 73,
+   "B": 73
+  },
+  "paired_verified_all": {
+   "both": 73,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 2
+  },
+  "paired_verified_tricky": {
+   "both": 25,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 0
+  },
+  "paired_verified_nontricky": {
+   "both": 48,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 2
+  }
+ },
+ "tier3_key_fix": {
+  "verified": {
+   "A": 74,
+   "B": 74
+  },
+  "correct": {
+   "A": 74,
+   "B": 74
+  },
+  "paired_verified_all": {
+   "both": 74,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 1
+  },
+  "paired_verified_tricky": {
+   "both": 25,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 0
+  },
+  "paired_verified_nontricky": {
+   "both": 49,
+   "only_A": 0,
+   "only_B": 0,
+   "neither": 1
+  }
+ }
+}

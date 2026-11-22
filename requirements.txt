@@ -4,3 +4,4 @@ lxml
 requests
 python-dotenv
 pandas
+reportlab<4.3
