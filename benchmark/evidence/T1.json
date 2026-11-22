@@ -1,0 +1,192 @@
+{
+ "question_id": "T1",
+ "retrieval_query": "weighted average shares diluted earnings per share computation denominator",
+ "k_per_company": 5,
+ "companies": {
+  "AAPL": [
+   {
+    "id": "AAPL-0091",
+    "ticker": "AAPL",
+    "heading": "Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities",
+    "text": "Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities\nThe Company's common stock is traded on The Nasdaq Stock Market LLC under the symbol AAPL.\nHolders\nAs of October 23, 2026, there were 21,458 shareholders of record.\nPurchases of Equity Securities by the Issuer and Affiliated Purchasers\nShare repurchase activity during the three months ended September 26, 2026, was as follows (in millions, except number of shares, which are reflected in thousands, and per-share amounts):\nPeriods | Total Number of Shares Purchased | Average Price Paid Per Share | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs (1)\nJune 28, 2026 to August 1, 2026:\nOpen market and privately negotiated purchases | 27,594 | $317.45 | 27,594\nAugust 2, 2026 to August 29, 2026:\nMay 2026 ASRs (2) | 6,288 | $305.29 | (2) | 6,288\nOpen market and privately negotiated purchases | 26,820 | $309.66 | 26,820\nAugust 30, 2026 to September 26, 2026:\nOpen market and privately negotiated purchases | 21,065 | $329.22 | 21,065\nTotal | 81,767 | $114,004\n(1)On May 1, 2025, the Company announced a program to repurchase up to $100 billion of the Company's common stock. As of September 26, 2026, remaining availability under the May 2025 program was $14.0 billion. On April 30, 2026, the Company announced an additional program to repurchase up to $100 billion of the Company's common stock. The programs do not obligate the Company to acquire a minimum amount of shares. Under the programs, shares may be repurchased in privately negotiated or open market transactions, including under plans complying with Rule 10b5-1 under the Exchange Act.",
+    "bm25": 13.707
+   },
+   {
+    "id": "AAPL-0109",
+    "ticker": "AAPL",
+    "heading": "Item 8. Financial Statements and Supplementary Data",
+    "text": "Apple Inc.\nCONSOLIDATED STATEMENTS OF OPERATIONS\n(In millions, except number of shares, which are reflected in thousands, and per-share amounts)\nYears Ended\nSeptember 26, 2026 | September 27, 2025 | September 28, 2024\nNet sales:\nProducts | $355,533 | $307,003 | $294,866\nServices | 123,301 | 109,158 | 96,169\nTotal net sales | 478,834 | 416,161 | 391,035\nCost of sales:\nProducts | 215,874 | 194,116 | 185,233\nServices | 29,358 | 26,844 | 25,119\nTotal cost of sales | 245,232 | 220,960 | 210,352\nGross margin | 233,602 | 195,201 | 180,683\nOperating expenses:\nResearch and development | 45,765 | 34,550 | 31,370\nSelling, general and administrative | 29,774 | 27,601 | 26,097\nTotal operating expenses | 75,539 | 62,151 | 57,467\nOperating income | 158,063 | 133,050 | 123,216\nOther income/(expense), net | 1,174 | (321) | 269\nIncome before provision for income taxes | 159,237 | 132,729 | 123,485\nProvision for income taxes | 27,062 | 20,719 | 29,749\nNet income | $132,175 | $112,010 | $93,736\nEarnings per share:\nBasic | $9.01 | $7.49 | $6.11\nDiluted | $8.98 | $7.46 | $6.08\nShares used in computing earnings per share:\nBasic | 14,661,935 | 14,948,500 | 15,343,783\nDiluted | 14,720,306 | 15,004,697 | 15,408,095\nSee accompanying Notes to Consolidated Financial Statements.",
+    "bm25": 19.927
+   },
+   {
+    "id": "AAPL-0121",
+    "ticker": "AAPL",
+    "heading": "Note 3 - Earnings Per Share",
+    "text": "Note 3 - Earnings Per Share\nThe following table shows the computation of basic and diluted earnings per share for 2026, 2025 and 2024 (net income in millions and shares in thousands):\n2026 | 2025 | 2024\nNumerator:\nNet income | $132,175 | $112,010 | $93,736\nDenominator:\nWeighted-average basic shares outstanding | 14,661,935 | 14,948,500 | 15,343,783\nEffect of dilutive share-based awards | 58,371 | 56,197 | 64,312\nWeighted-average diluted shares | 14,720,306 | 15,004,697 | 15,408,095\nBasic earnings per share | $9.01 | $7.49 | $6.11\nDiluted earnings per share | $8.98 | $7.46 | $6.08",
+    "bm25": 50.637
+   },
+   {
+    "id": "AAPL-0142",
+    "ticker": "AAPL",
+    "heading": "Note 12 - Share-Based Compensation",
+    "text": "Note 12 - Share-Based Compensation\n2022 Employee Stock Plan\nThe Apple Inc. 2022 Employee Stock Plan (\"2022 Plan\") is a shareholder-approved plan that provides for broad-based equity grants to employees, including executive officers, and permits the granting of restricted stock units (\"RSUs\"), stock grants, performance-based awards, stock options and stock appreciation rights. RSUs granted under the 2022 Plan generally vest over four years, based on continued employment, and are settled upon vesting in shares of the Company's common stock on a one-for-one basis. All RSUs granted under the 2022 Plan have dividend equivalent rights, which entitle holders of RSUs to the same dividend value per share as holders of common stock. A maximum of approximately 1.3 billion shares were authorized for issuance pursuant to 2022 Plan awards at the time the plan was approved on March 4, 2022.\nRestricted Stock Units\nA summary of the Company's RSU activity and related information for 2026 is as follows:\nNumber of RSUs (in thousands) | Weighted-Average Grant-Date Fair Value\nBalance as of September 27, 2025 | 151,574 | $189.75\nRSUs granted | 75,538 | $260.81\nRSUs vested | (73,529) | $185.44\nRSUs forfeited | (11,178) | $215.25\nBalance as of September 26, 2026 | 142,405 | $227.67\nThe weighted-average grant-date fair value of RSUs granted in 2025 and 2024 was $226.68 and $173.78, respectively. The Company estimates the grant-date fair value of RSUs based on the closing price of the Company's common stock on the date of grant.",
+    "bm25": 17.666
+   },
+   {
+    "id": "AAPL-0143",
+    "ticker": "AAPL",
+    "heading": "Note 12 - Share-Based Compensation",
+    "text": "The total vesting-date fair value of RSUs was $19.3 billion, $17.1 billion and $15.8 billion for 2026, 2025 and 2024, respectively. The majority of RSUs that vested in 2026, 2025 and 2024 were net share settled such that the Company withheld shares with a value equivalent to the employees' obligation for the applicable income and other employment taxes, and remitted cash to the appropriate taxing authorities. Total payments to taxing authorities for employees' tax obligations were $6.9 billion, $6.1 billion and $5.6 billion in 2026, 2025 and 2024, respectively.\nShare-Based Compensation\nThe following table shows share-based compensation expense and the related income tax benefit included in the Consolidated Statements of Operations for 2026, 2025 and 2024 (in millions):\n2026 | 2025 | 2024\nShare-based compensation expense | $13,789 | $12,863 | $11,688\nIncome tax benefit related to share-based compensation expense | $(3,917) | $(3,602) | $(3,350)\nAs of September 26, 2026, the total unrecognized compensation cost related to outstanding RSUs was $24.1 billion, which the Company expects to recognize over a weighted-average period of 2.6 years.",
+    "bm25": 13.645
+   }
+  ],
+  "MSFT": [
+   {
+    "id": "MSFT-0112",
+    "ticker": "MSFT",
+    "heading": "PART II",
+    "text": "Item 7\nMore Personal Computing\nMetrics related to our More Personal Computing segment assess the performance of our key consumer businesses.\nWindows OEM and Devices revenue growth | Revenue from sales of Windows Pro and non-Pro licenses sold through the OEM channel and sales of first-party Devices, including Surface and PC accessories\nXBOX content and services revenue growth | Revenue from XBOX content and services, comprising first- and third-party content (including games and in-game content), XBOX Game Pass and other subscriptions, XBOX Cloud Gaming, advertising, and other cloud services\nSearch advertising revenue (ex TAC) growth | Revenue from search advertising excluding traffic acquisition costs (\"TAC\") paid to Bing Ads network publishers and content partners\nSUMMARY RESULTS OF OPERATIONS\n(In millions, except percentages and per share amounts) | 2026 | 2025 | Percentage Change\nRevenue | $331,839 | $281,724 | 18%\nGross margin | 225,465 | 193,893 | 16%\nOperating income | 155,237 | 128,528 | 21%\nNet income | 133,749 | 101,832 | 31%\nDiluted earnings per share | 17.95 | 13.64 | 32%\nAdjusted net income (non-GAAP) | 128,786 | 105,452 | 22%\nAdjusted diluted earnings per share (non-GAAP) | 17.28 | 14.13 | 22%\nAdjusted net income and adjusted diluted earnings per share (\"EPS\") are non-GAAP financial measures. These non-GAAP financial measures exclude net gains and losses from investments in OpenAI. Refer to the Non-GAAP Financial Measures section below for a reconciliation of our financial results reported in accordance with GAAP to non-GAAP financial results.\nFiscal Year 2026 Compared with Fiscal Year 2025",
+    "bm25": 17.88
+   },
+   {
+    "id": "MSFT-0142",
+    "ticker": "MSFT",
+    "heading": "ITEM 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA",
+    "text": "Item 8\nITEM 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA\nINCOME STATEMENTS\n(In millions, except per share amounts)\nYear Ended June 30, | 2026 | 2025 | 2024\nRevenue:\nProduct | $64,696 | $63,946 | $64,773\nService and other | 267,143 | 217,778 | 180,349\nTotal revenue | 331,839 | 281,724 | 245,122\nCost of revenue:\nProduct | 12,098 | 13,501 | 15,272\nService and other | 94,276 | 74,330 | 58,842\nTotal cost of revenue | 106,374 | 87,831 | 74,114\nGross margin | 225,465 | 193,893 | 171,008\nResearch and development | 35,562 | 32,488 | 29,510\nSales and marketing | 26,710 | 25,654 | 24,456\nGeneral and administrative | 7,956 | 7,223 | 7,609\nOperating income | 155,237 | 128,528 | 109,433\nOther income (expense), net | 10,697 | (4,901) | (1,646)\nIncome before income taxes | 165,934 | 123,627 | 107,787\nProvision for income taxes | 32,185 | 21,795 | 19,651\nNet income | $133,749 | $101,832 | $88,136\nEarnings per share:\nBasic | $18.00 | $13.70 | $11.86\nDiluted | $17.95 | $13.64 | $11.80\nWeighted average shares outstanding:\nBasic | 7,429 | 7,433 | 7,431\nDiluted | 7,453 | 7,465 | 7,469\nRefer to accompanying notes.\n50",
+    "bm25": 21.458
+   },
+   {
+    "id": "MSFT-0163",
+    "ticker": "MSFT",
+    "heading": "NOTE 2 - EARNINGS PER SHARE",
+    "text": "NOTE 2 - EARNINGS PER SHARE\nBasic earnings per share (\"EPS\") is computed based on the weighted average number of shares of common stock outstanding during the period. Diluted EPS is computed based on the weighted average number of shares of common stock plus the effect of dilutive potential common shares outstanding during the period using the treasury stock method. Dilutive potential common shares include outstanding stock options and stock awards.\nThe components of basic and diluted EPS were as follows:\n(In millions, except per share amounts)\nYear Ended June 30, | 2026 | 2025 | 2024\nNet income available for common shareholders (A) | $133,749 | $101,832 | $88,136\nWeighted average outstanding shares of common stock (B) | 7,429 | 7,433 | 7,431\nDilutive effect of stock-based awards | 24 | 32 | 38\nCommon stock and common stock equivalents (C) | 7,453 | 7,465 | 7,469\nEarnings Per Share\nBasic (A/B) | $18.00 | $13.70 | $11.86\nDiluted (A/C) | $17.95 | $13.64 | $11.80",
+    "bm25": 36.623
+   },
+   {
+    "id": "MSFT-0177",
+    "ticker": "MSFT",
+    "heading": "PART II",
+    "text": "PART II\nItem 8\nThe allocation of the purchase price to the assets acquired and liabilities assumed was completed as of September 30, 2024. The major classes of assets and liabilities to which we have allocated the purchase price were as follows:\n(In millions)\nCash and cash equivalents | $12,976\nGoodwill | 51,001\nIntangible assets | 21,969\nOther assets | 2,503\nLong-term debt | (2,799)\nLong-term income taxes | (1,946)\nDeferred income taxes | (4,676)\nOther liabilities | (3,620)\nTotal purchase price | $75,408\nGoodwill was assigned to our More Personal Computing segment. The goodwill was primarily attributed to increased synergies that are expected to be achieved from the integration of Activision Blizzard. Substantially all of the goodwill is expected to be non-deductible for income tax purposes.\nFollowing are the details of the purchase price allocated to the intangible assets acquired:\n(In millions, except average life) | Amount | Weighted Average Life\nMarketing-related | $11,619 | 24 years\nTechnology-based | 9,689 | 4 years\nCustomer-related | 661 | 4 years\nFair value of intangible assets acquired | $21,969 | 15 years\nFollowing are the supplemental consolidated financial results of Microsoft Corporation on an unaudited pro forma basis, as if the acquisition had been consummated on July 1, 2022:\n(In millions, except per share amounts)\nYear Ended June 30, | 2024 | 2023\nRevenue | $247,442 | $219,790\nNet income | 88,308 | 71,383\nDiluted earnings per share | 11.82 | 9.55",
+    "bm25": 18.932
+   },
+   {
+    "id": "MSFT-0203",
+    "ticker": "MSFT",
+    "heading": "PART II",
+    "text": "PART II\nItem 8\nActivity for All Stock Plans\nThe fair value of stock awards was estimated on the date of grant using the following assumptions:\nYear Ended June 30, | 2026 | 2025 | 2024\nDividends per share (quarterly amounts) | $0.83 - 0.91 | $0.75 - 0.83 | $0.68 - 0.75\nInterest rates | 3.4% - 4.5% | 3.4% - 5.5% | 3.8% - 5.6%\nDuring fiscal year 2026, the following activity occurred under our stock plans:\nShares | Weighted Average Grant-Date Fair Value\n(In millions)\nStock Awards\nNonvested balance, beginning of year | 82 | $347.44\nGranted (a) | 41 | 471.00\nVested | (35) | 342.98\nForfeited | (10) | 384.57\nNonvested balance, end of year | 78 | 409.94\n(a)\nIncludes 1 million of PSUs granted at target and performance adjustments above target levels for each of the fiscal years 2026, 2025, and 2024.\nAs of June 30, 2026, total unrecognized compensation costs related to stock awards were $24.8 billion. These costs are expected to be recognized over a weighted average period of three years. The weighted average grant-date fair value of stock awards granted was $471.00, $413.90, and $339.46 for fiscal years 2026, 2025, and 2024, respectively. The fair value of stock awards vested was $16.3 billion, $16.2 billion, and $16.0 billion, for fiscal years 2026, 2025, and 2024, respectively. As of June 30, 2026, an aggregate of 292 million shares were authorized for future grant under our stock plans.\nEmployee Stock Purchase Plan\nWe have an ESPP for all eligible employees. Shares of our common stock may be purchased by employees at three-month intervals at 90% of the fair market value on the last trading day of each three-month period. Employees may purchase shares having a value not exceeding 15% of their gross compensation during an offering period.",
+    "bm25": 17.409
+   }
+  ],
+  "GOOGL": [
+   {
+    "id": "GOOGL-0210",
+    "ticker": "GOOGL",
+    "heading": "Note 12. Net Income Per Share",
+    "text": "Note 12. Net Income Per Share\nWe compute net income per share of Class A, Class B, and Class C stock using the two-class method. Basic net income per share is computed using the weighted-average number of shares outstanding during the period. Diluted net income per share is computed using the weighted-average number of shares and the effect of potentially dilutive securities outstanding during the period. Potentially dilutive securities consist of RSUs and other contingently issuable shares. The dilutive effect of outstanding RSUs and other contingently issuable shares is reflected in diluted earnings per share by application of the treasury stock method. The computation of the diluted net income per share of Class A stock assumes the conversion of Class B stock, while the diluted net income per share of Class B stock does not assume the conversion of those shares.",
+    "bm25": 39.583
+   },
+   {
+    "id": "GOOGL-0211",
+    "ticker": "GOOGL",
+    "heading": "Note 12. Net Income Per Share",
+    "text": "In accordance with our certificate of incorporation, the rights, including the liquidation and dividend rights, of the holders of our Class A, Class B, and Class C stock are identical, except with respect to voting. Furthermore, there are a number of safeguards built into our certificate of incorporation, as well as Delaware law, which preclude our Board of Directors from declaring or paying unequal per share dividends on our Class A, Class B, and Class C stock. Specifically, Delaware law provides that amendments to our certificate of incorporation which would have the effect of adversely altering the rights, powers, or preferences of a given class of stock must be approved by the class of stock adversely affected by the proposed amendment. In addition, our certificate of incorporation provides that before any such amendment may be put to a stockholder vote, it must be approved by the unanimous consent of our Board of Directors.\nImmaterial differences in net income per share across our Class A, Class B, and Class C shares may arise due to the allocation of distributed earnings, which is based on the holders as of the record date, compared with the allocation of undistributed earnings and number of shares, which is based on the weighted average shares outstanding over the periods.\n79.\nTable of Contents | Alphabet Inc.\nThe following tables set forth the computation of basic and diluted net income per share of Class A, Class B, and Class C stock (in millions, except per share amounts):",
+    "bm25": 30.985
+   },
+   {
+    "id": "GOOGL-0212",
+    "ticker": "GOOGL",
+    "heading": "Note 12. Net Income Per Share",
+    "text": "Year Ended December 31, 2023\nClass A | Class B | Class C | Consolidated\nBasic net income per share:\nNumerator\nAllocation of distributed earnings (cash dividends paid) | $0 | $0 | $0 | $0\nAllocation of undistributed earnings | 34,601 | 5,124 | 34,070 | 73,795\nNet income | $34,601 | $5,124 | $34,070 | $73,795\nDenominator\nNumber of shares used in per share computation | 5,922 | 877 | 5,831 | 12,630\nBasic net income per share | $5.84 | $5.84 | $5.84 | $5.84\nDiluted net income per share:\nNumerator\nAllocation of total earnings for basic computation | $34,601 | $5,124 | $34,070 | $73,795\nReallocation of total earnings as a result of conversion of Class B to Class A shares | 5,124 | 0 | 0 | _(1)\nReallocation of undistributed earnings | (287) | (37) | 287 | _(1)\nNet income | $39,438 | $5,087 | $34,357 | $73,795\nDenominator\nNumber of shares used in basic computation | 5,922 | 877 | 5,831 | 12,630\nWeighted-average effect of dilutive securities\nAdd:\nConversion of Class B to Class A shares outstanding | 877 | 0 | 0 | _(1)\nRestricted stock units and other contingently issuable shares | 0 | 0 | 92 | 92\nNumber of shares used in per share computation | 6,799 | 877 | 5,923 | 12,722\nDiluted net income per share | $5.80 | $5.80 | $5.80 | $5.80\n(1) Not applicable for consolidated net income per share.\n80.\nTable of Contents | Alphabet Inc.",
+    "bm25": 41.773
+   },
+   {
+    "id": "GOOGL-0213",
+    "ticker": "GOOGL",
+    "heading": "Note 12. Net Income Per Share",
+    "text": "Year Ended December 31, 2024\nClass A | Class B | Class C | Consolidated\nBasic net income per share:\nNumerator\nAllocation of distributed earnings (cash dividends paid) | $3,509 | $519 | $3,335 | $7,363\nAllocation of undistributed earnings | 44,085 | 6,520 | 42,150 | 92,755\nNet income | $47,594 | $7,039 | $45,485 | $100,118\nDenominator\nNumber of shares used in per share computation | 5,855 | 866 | 5,598 | 12,319\nBasic net income per share | $8.13 | $8.13 | $8.13 | $8.13\nDiluted net income per share:\nNumerator\nAllocation of total earnings for basic computation | $47,594 | $7,039 | $45,485 | $100,118\nReallocation of total earnings as a result of conversion of Class B to Class A shares | 7,039 | 0 | 0 | _(1)\nReallocation of undistributed earnings | (520) | (67) | 520 | _(1)\nNet income | $54,113 | $6,972 | $46,005 | $100,118\nDenominator\nNumber of shares used in basic computation | 5,855 | 866 | 5,598 | 12,319\nWeighted-average effect of dilutive securities\nAdd:\nConversion of Class B to Class A shares outstanding | 866 | 0 | 0 | _(1)\nRestricted stock units and other contingently issuable shares | 0 | 0 | 128 | 128\nNumber of shares used in per share computation | 6,721 | 866 | 5,726 | 12,447\nDiluted net income per share | $8.05 | $8.05 | $8.03 | $8.04\n(1)\nNot applicable for consolidated net income per share.\n81.\nTable of Contents | Alphabet Inc.",
+    "bm25": 41.605
+   },
+   {
+    "id": "GOOGL-0214",
+    "ticker": "GOOGL",
+    "heading": "Note 12. Net Income Per Share",
+    "text": "Year Ended December 31, 2025\nClass A | Class B | Class C | Consolidated\nBasic net income per share:\nNumerator\nAllocation of distributed earnings (cash dividends paid) | $4,832 | $703 | $4,514 | $10,049\nAllocation of undistributed earnings | 58,682 | 8,557 | 54,882 | 122,121\nNet income | $63,514 | $9,260 | $59,396 | $132,170\nDenominator\nNumber of shares used in per share computation | 5,822 | 849 | 5,445 | 12,116\nBasic net income per share | $10.91 | $10.91 | $10.91 | $10.91\nDiluted net income per share:\nNumerator\nAllocation of total earnings for basic computation | $63,514 | $9,260 | $59,396 | $132,170\nReallocation of total earnings as a result of conversion of Class B to Class A shares | 9,260 | 0 | 0 | _(1)\nReallocation of undistributed earnings | (627) | (79) | 627 | _(1)\nNet income | $72,147 | $9,181 | $60,023 | $132,170\nDenominator\nNumber of shares used in basic computation | 5,822 | 849 | 5,445 | 12,116\nWeighted-average effect of dilutive securities\nAdd:\nConversion of Class B to Class A shares outstanding | 849 | 0 | 0 | _(1)\nRestricted stock units and other contingently issuable shares | 0 | 0 | 114 | 114\nNumber of shares used in per share computation | 6,671 | 849 | 5,559 | 12,230\nDiluted net income per share | $10.82 | $10.81 | $10.80 | $10.81\n(1)Not applicable for consolidated net income per share.",
+    "bm25": 41.886
+   }
+  ],
+  "META": [
+   {
+    "id": "META-0151",
+    "ticker": "META",
+    "heading": "Item 1A. Risk Factors",
+    "text": "In addition, the stock markets have experienced extreme price and volume fluctuations that have affected and continue to affect the market prices of equity securities of many technology companies. We are currently subject to securities litigation in connection with our platform and user data practices and the misuse of certain data by a developer that shared such data with third parties in violation of our terms and policies; the disclosure of our earnings results for the second quarter of 2018; a former employee's allegations and release of internal company documents beginning in September 2021; and the disclosure of our earnings results for the fourth quarter of 2021. We may experience more such litigation following future periods of volatility. Any securities litigation could subject us to substantial costs, divert resources and the attention of management from our business, and adversely affect our business.\nThe dual class structure of our common stock has the effect of concentrating voting control with our CEO and certain other holders of our Class B common stock; this will limit or preclude your ability to influence corporate matters.\nOur Class B common stock has ten votes per share and our Class A common stock has one vote per share. Holders of our Class B common stock, including our founder, Chairman, and CEO, together hold a majority of the combined voting power of our outstanding capital stock, and therefore are able to control the outcome of all matters submitted to our stockholders for approval so long as the shares of Class B common stock represent at least 9.1% of all outstanding shares of our Class A and Class B common stock. This concentrated control will limit or preclude your ability to influence corporate matters for the foreseeable future.",
+    "bm25": 13.488
+   },
+   {
+    "id": "META-0246",
+    "ticker": "META",
+    "heading": "Item 8.Financial Statements and Supplementary Data",
+    "text": "Table of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF INCOME\n(In millions, except per share amounts)\nYear Ended December 31,\n2025 | 2024 | 2023\nRevenue | $200,966 | $164,501 | $134,902\nCosts and expenses:\nCost of revenue | 36,175 | 30,161 | 25,959\nResearch and development | 57,372 | 43,873 | 38,483\nMarketing and sales | 11,991 | 11,347 | 12,301\nGeneral and administrative | 12,152 | 9,740 | 11,408\nTotal costs and expenses | 117,690 | 95,121 | 88,151\nIncome from operations | 83,276 | 69,380 | 46,751\nInterest and other income, net | 2,656 | 1,283 | 677\nIncome before provision for income taxes | 85,932 | 70,663 | 47,428\nProvision for income taxes | 25,474 | 8,303 | 8,330\nNet income | $60,458 | $62,360 | $39,098\nEarnings per share:\nBasic | $23.98 | $24.61 | $15.19\nDiluted | $23.49 | $23.86 | $14.87\nWeighted-average shares used to compute earnings per share:\nBasic | 2,521 | 2,534 | 2,574\nDiluted | 2,574 | 2,614 | 2,629\nSee Accompanying Notes to Consolidated Financial Statements.\n89\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(In millions)\nYear Ended December 31,\n2025 | 2024 | 2023\nNet income | $60,458 | $62,360 | $39,098\nOther comprehensive income (loss):\nChange in foreign currency translation adjustment, net of tax | 2,693 | (1,413) | 618\nChange in unrealized gain (loss) on available-for-sale investments and other, net of tax | 675 | 471 | 757\nComprehensive income | $63,826 | $61,418 | $40,473\nSee Accompanying Notes to Consolidated Financial Statements.\n90\nTable of Contents",
+    "bm25": 23.411
+   },
+   {
+    "id": "META-0277",
+    "ticker": "META",
+    "heading": "Note 3. Earnings per Share",
+    "text": "Note 3. Earnings per Share\nThe holders of our Class A and Class B common stock (together, \"common stock\") have identical liquidation and dividend rights but different voting rights. Accordingly, we present the earnings per share (EPS) for Class A and Class B common stock together.\nBasic EPS is computed by dividing net income by the weighted-average number of shares of our common stock outstanding. Diluted EPS is computed by dividing net income by the weighted-average number of fully diluted common stock outstanding and assumes the conversion of our Class B common stock to Class A common stock.\nFor the years ended December 31, 2025 and 2023, approximately 9 million and 16 million shares of RSUs, respectively, were excluded from the diluted EPS calculation, as including them would have an anti-dilutive effect. RSUs with anti-dilutive effect were not material for the year ended December 31, 2024.\nThe numerators and denominators of the basic and diluted EPS computations for our common stock are calculated as follows (in millions, except per share amounts):\nYear Ended December 31,\n2025 | 2024 | 2023 (2)\nBasic EPS:\nNumerator\nDistributed earnings | $5,324 | $5,072 | $-\nUndistributed earnings | 55,134 | 57,288 | 39,098\nNet income | $60,458 | $62,360 | $39,098\nDenominator\nShares used in computation of basic EPS (1) | 2,521 | 2,534 | 2,574\nBasic EPS | $23.98 | $24.61 | $15.19\nDiluted EPS:\nNumerator\nNet income for diluted EPS | $60,458 | $62,360 | $39,098\nDenominator\nShares used in computation of basic EPS (1) | 2,521 | 2,534 | 2,574\nEffect of dilutive RSUs | 53 | 80 | 55\nShares used in computation of diluted EPS | 2,574 | 2,614 | 2,629\nDiluted EPS | $23.49 | $23.86 | $14.87\n____________________________________",
+    "bm25": 49.774
+   },
+   {
+    "id": "META-0278",
+    "ticker": "META",
+    "heading": "Note 3. Earnings per Share",
+    "text": "(1)Includes 2,178 million, 2,189 million, and 2,220 million shares of Class A common stock and 343 million, 345 million, and 354 million shares of Class B common stock, for the years ended December 31, 2025, 2024, and 2023, respectively.\n(2)The prior period EPS for Class A and Class B common stock has been presented together to conform with current period presentation, which had no impact on our previously reported basic or diluted EPS.\nEPS for Class B common stock is not presented separately as under the two-class method Class A and Class B EPS is not meaningfully different.\n103\nTable of Contents",
+    "bm25": 19.13
+   },
+   {
+    "id": "META-0321",
+    "ticker": "META",
+    "heading": "Note 12. Stockholders' Equity",
+    "text": "The following table summarizes our share-based compensation expense, which consists of the RSU expense, by line item in our consolidated statements of income (in millions):\nYear Ended December 31,\n2025 | 2024 | 2023\nCost of revenue | $1,124 | $1,055 | $740\nResearch and development | 17,485 | 13,683 | 11,429\nMarketing and sales | 926 | 1,026 | 952\nGeneral and administrative | 892 | 926 | 906\nTotal | $20,427 | $16,690 | $14,027\nThe following table summarizes the activities for our unvested RSUs for the year ended December 31, 2025:\nNumber of Shares | Weighted-Average Grant Date Fair Value Per Share\n(in thousands)\nUnvested at December 31, 2024 | 122,632 | $302.27\nGranted | 69,666 | $661.57\nVested | (61,906) | $317.68\nForfeited | (14,840) | $379.82\nUnvested at December 31, 2025 | 115,552 | $500.68\nThe fair value as of the respective vesting dates of RSUs that vested during the years ended December 31, 2025, 2024, and 2023 was $43.11 billion, $33.14 billion, and $17.46 billion, respectively. The income tax benefit recognized related to awards vested during the years ended December 31, 2025, 2024, and 2023 was $9.33 billion, $6.95 billion, and $3.65 billion, respectively.\nAs of December 31, 2025, unrecognized share-based compensation expense related to RSU awards was $54.81 billion, which is expected to be recognized over a weighted-average period of approximately three years based on vesting under the award service conditions.\n120",
+    "bm25": 17.293
+   }
+  ],
+  "AMZN": [
+   {
+    "id": "AMZN-0092",
+    "ticker": "AMZN",
+    "heading": "PART II",
+    "text": "We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Marketable debt securities with fixed interest rates may have their fair market value adversely affected due to a rise in interest rates, and we may suffer losses in principal if forced to sell securities that have declined in market value due to changes in interest rates. The following table provides information about our cash equivalents and marketable debt securities, including principal cash flows by expected maturity and the related weighted-average interest rates as of December 31, 2025 (in millions, except percentages):\n2026 | 2027 | 2028 | 2029 | 2030 | Thereafter | Total | Estimated Fair Value as of December 31, 2025\nMoney market funds | $29,046 | $- | $- | $- | $- | $- | $29,046 | $29,777\nWeighted average interest rate | 3.73% | -% | -% | -% | -% | -% | 3.73%\nCorporate debt securities | 63,890 | 2,867 | 2,008 | 391 | - | 423 | 69,579 | 69,585\nWeighted average interest rate | 3.98% | 4.54% | 4.54% | 4.63% | -% | 4.61% | 4.03%\nU.S. government and agency securities | 4,057 | 617 | 311 | 45 | 173 | 19 | 5,222 | 5,222\nWeighted average interest rate | 3.68% | 3.94% | 3.27% | 3.21% | 2.20% | 1.43% | 3.62%\nAsset-backed securities | 245 | 331 | 370 | 404 | 253 | 177 | 1,780 | 1,780\nWeighted average interest rate | 4.52% | 4.62% | 4.24% | 4.38% | 3.81% | 4.40% | 4.33%\nOther financial instruments | 109 | 7 | 9 | - | - | 4 | 129 | 129\nWeighted average interest rate | 3.90% | 4.42% | 4.32% | -% | -% | 4.19% | 3.96%\n$97,347 | $3,822 | $2,698 | $840 | $426 | $623 | $105,756\nCash equivalents and marketable debt securities | $106,493",
+    "bm25": 10.093
+   },
+   {
+    "id": "AMZN-0101",
+    "ticker": "AMZN",
+    "heading": "PART II",
+    "text": "See accompanying notes to consolidated financial statements.\n36\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF OPERATIONS\n(in millions, except per share data)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet product sales | $255,887 | $272,311 | $296,266\nNet service sales | 318,898 | 365,648 | 420,658\nTotal net sales | 574,785 | 637,959 | 716,924\nOperating expenses:\nCost of sales | 304,739 | 326,288 | 356,414\nFulfillment | 90,619 | 98,505 | 109,074\nTechnology and infrastructure | 85,622 | 88,544 | 108,521\nSales and marketing | 44,370 | 43,907 | 47,129\nGeneral and administrative | 11,816 | 11,359 | 11,172\nOther operating expense (income), net | 767 | 763 | 4,639\nTotal operating expenses | 537,933 | 569,366 | 636,949\nOperating income | 36,852 | 68,593 | 79,975\nInterest income | 2,949 | 4,677 | 4,381\nInterest expense | (3,182) | (2,406) | (2,274)\nOther income (expense), net | 938 | (2,250) | 15,229\nTotal non-operating income | 705 | 21 | 17,336\nIncome before income taxes | 37,557 | 68,614 | 97,311\nProvision for income taxes | (7,120) | (9,265) | (19,087)\nEquity-method investment activity, net of tax | (12) | (101) | (554)\nNet income | $30,425 | $59,248 | $77,670\nBasic earnings per share | $2.95 | $5.66 | $7.29\nDiluted earnings per share | $2.90 | $5.53 | $7.17\nWeighted-average shares used in computation of earnings per share:\nBasic | 10,304 | 10,473 | 10,656\nDiluted | 10,492 | 10,721 | 10,827\nSee accompanying notes to consolidated financial statements.\n37\nTable of Contents",
+    "bm25": 28.894
+   },
+   {
+    "id": "AMZN-0103",
+    "ticker": "AMZN",
+    "heading": "PART II",
+    "text": "AMAZON.COM, INC.\nCONSOLIDATED BALANCE SHEETS\n(in millions, except per share data)\nDecember 31,\n2024 | 2025\nASSETS\nCurrent assets:\nCash and cash equivalents | $78,779 | $86,810\nMarketable securities | 22,423 | 36,219\nInventories | 34,214 | 38,325\nAccounts receivable, net and other | 55,451 | 67,729\nTotal current assets | 190,867 | 229,083\nProperty and equipment, net | 252,665 | 357,025\nOperating leases | 76,141 | 86,054\nGoodwill | 23,074 | 23,273\nOther assets | 82,147 | 122,607\nTotal assets | $624,894 | $818,042\nLIABILITIES AND STOCKHOLDERS' EQUITY\nCurrent liabilities:\nAccounts payable | $94,363 | $121,909\nAccrued expenses and other | 66,965 | 75,520\nUnearned revenue | 18,103 | 20,576\nTotal current liabilities | 179,431 | 218,005\nLong-term lease liabilities | 78,277 | 87,339\nLong-term debt | 52,623 | 65,648\nOther long-term liabilities | 28,593 | 35,985\nCommitments and contingencies (Note 7)\nStockholders' equity:\nPreferred stock ($0.01 par value; 500 shares authorized; no shares issued or outstanding) | - | -\nCommon stock ($0.01 par value; 100,000 shares authorized; 11,108 and 11,246 shares issued; 10,593 and 10,731 shares outstanding) | 111 | 112\nTreasury stock, at cost | (7,837) | (7,837)\nAdditional paid-in capital | 120,864 | 140,024\nAccumulated other comprehensive income (loss) | (34) | 28,230\nRetained earnings | 172,866 | 250,536\nTotal stockholders' equity | 285,970 | 411,065\nTotal liabilities and stockholders' equity | $624,894 | $818,042\nSee accompanying notes to consolidated financial statements.\n39\nTable of Contents",
+    "bm25": 12.19
+   },
+   {
+    "id": "AMZN-0107",
+    "ticker": "AMZN",
+    "heading": "Note 1 - DESCRIPTION OF BUSINESS, ACCOUNTING POLICIES, AND SUPPLEMENTAL DISCLOSURES",
+    "text": "Effective January 1, 2025 we changed our estimate of the useful lives of a subset of our servers and networking equipment from six years to five years. The shorter useful lives are due to the increased pace of technology development, particularly in the area of artificial intelligence and machine learning. The effect of this change in estimate for the year ended December 31, 2025, based on servers and networking equipment that were included in \"Property and equipment, net\" as of December 31, 2024 and those acquired during the year ended December 31, 2025, was an increase in depreciation and amortization expense of $1.4 billion and a reduction in net income of $1.0 billion, or $0.10 per basic share and $0.10 per diluted share, which primarily impacted our AWS segment.\nDuring Q3 2025, we recorded $2.5 billion of expense related to the settlement of a lawsuit with the FTC. This charge was recorded in \"Other operating expense (income), net\" and impacted our North America segment.\nDuring Q4 2025, we recorded $2.4 billion of expense related to settlements of a lawsuit and tax disputes, severance costs, and asset impairments. Of this total, $1.1 billion related to the resolution of tax disputes associated with our stores business in Italy, and the settlement of a lawsuit, recorded primarily in \"Other operating expense (income), net\" and \"Fulfillment,\" and primarily impacted our International segment.",
+    "bm25": 12.582
+   },
+   {
+    "id": "AMZN-0109",
+    "ticker": "AMZN",
+    "heading": "Note 1 - DESCRIPTION OF BUSINESS, ACCOUNTING POLICIES, AND SUPPLEMENTAL DISCLOSURES",
+    "text": "Basic earnings per share is calculated using our weighted-average outstanding common shares. Diluted earnings per share is calculated using our weighted-average outstanding common shares including the dilutive effect of stock awards as determined under the treasury stock method. In periods when we have a net loss, stock awards are excluded from our calculation of earnings per share as their inclusion would have an antidilutive effect.\nThe following table shows the calculation of diluted shares (in millions):\nYear Ended December 31,\n2023 | 2024 | 2025\nShares used in computation of basic earnings per share | 10,304 | 10,473 | 10,656\nTotal dilutive effect of outstanding stock awards | 188 | 248 | 171\nShares used in computation of diluted earnings per share | 10,492 | 10,721 | 10,827",
+    "bm25": 46.069
+   }
+  ]
+ }
+}

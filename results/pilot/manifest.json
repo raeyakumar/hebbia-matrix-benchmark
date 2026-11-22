@@ -1,0 +1,107 @@
+{
+ "model": "gemini-3.8-flash",
+ "generation": {
+  "temperature": 0.0,
+  "topP": 1.0,
+  "maxOutputTokens": 8192,
+  "seed": 7
+ },
+ "thinking_level": "low",
+ "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
+ "request_template": {
+  "systemInstruction": {
+   "parts": [
+    {
+     "text": "You are a careful financial analyst answering questions about companies' SEC Form 10-K filings.\n\nRules:\n1. Use ONLY the excerpts provided. Do not use outside knowledge, even if you believe you know the answer.\n2. Return exactly one row for every company listed under \"Companies\", using the company name exactly as written there.\n3. For each row, cite exactly one excerpt by its id (for example \"AAPL-0123\") and copy a short verbatim quote (one sentence or one table row, at most 300 characters) from that excerpt that directly supports your answer. Copy the quote character for character, including the \" | \" separators used in tables.\n4. Report the number as it is stated in the filing in `value` and give its unit in `unit` (for example \"USD millions\", \"USD billions\", \"percent\", \"employees\"). Do not rescale unless the question asks you to.\n5. State the reporting period the value refers to in `period` (for example \"fiscal year ended September 26, 2026\" or \"as of December 31, 2025\").\n6. If the excerpts for a company do not contain enough information to answer, set `status` to \"insufficient_evidence\", leave `value` null, and explain briefly in `answer`. Do not guess.\n7. Cite only an excerpt that belongs to the company in that row."
+    }
+   ]
+  },
+  "contents": [
+   {
+    "role": "user",
+    "parts": [
+     {
+      "text": "<prompt>"
+     }
+    ]
+   }
+  ],
+  "generationConfig": {
+   "temperature": 0.0,
+   "topP": 1.0,
+   "maxOutputTokens": 8192,
+   "seed": 7,
+   "responseMimeType": "application/json",
+   "responseJsonSchema": {
+    "type": "object",
+    "properties": {
+     "rows": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "company": {
+         "type": "string"
+        },
+        "status": {
+         "type": "string",
+         "enum": [
+          "answered",
+          "insufficient_evidence"
+         ]
+        },
+        "answer": {
+         "type": "string",
+         "description": "Short natural-language answer"
+        },
+        "value": {
+         "type": [
+          "number",
+          "null"
+         ],
+         "description": "Numeric value as stated in the filing, or null"
+        },
+        "unit": {
+         "type": "string"
+        },
+        "period": {
+         "type": "string"
+        },
+        "excerpt_id": {
+         "type": "string"
+        },
+        "quote": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "company",
+        "status",
+        "answer",
+        "value",
+        "unit",
+        "period",
+        "excerpt_id",
+        "quote"
+       ]
+      }
+     }
+    },
+    "required": [
+     "rows"
+    ]
+   },
+   "thinkingConfig": {
+    "thinkingLevel": "low"
+   }
+  }
+ },
+ "prompt_template_hash": "2a924d2e47c9",
+ "set": "practice",
+ "tickers": [
+  "AAPL",
+  "MSFT"
+ ],
+ "n_calls": 6,
+ "started_utc": "2026-11-22T19:59:53.423766+00:00"
+}

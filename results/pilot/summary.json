@@ -1,0 +1,123 @@
+{
+ "run": "results/pilot",
+ "model": "gemini-3.8-flash",
+ "units": 4,
+ "methods": {
+  "A": {
+   "n": 4,
+   "correct": 4,
+   "quote_ok": 4,
+   "support_ok": 4,
+   "verified": 4,
+   "abstained": 0,
+   "errors": 0,
+   "needs_human": 0
+  },
+  "B": {
+   "n": 4,
+   "correct": 4,
+   "quote_ok": 4,
+   "support_ok": 4,
+   "verified": 4,
+   "abstained": 0,
+   "errors": 0,
+   "needs_human": 0
+  }
+ },
+ "methods_tricky": {
+  "A": {
+   "n": 0,
+   "correct": 0,
+   "quote_ok": 0,
+   "support_ok": 0,
+   "verified": 0,
+   "abstained": 0,
+   "errors": 0,
+   "needs_human": 0
+  },
+  "B": {
+   "n": 0,
+   "correct": 0,
+   "quote_ok": 0,
+   "support_ok": 0,
+   "verified": 0,
+   "abstained": 0,
+   "errors": 0,
+   "needs_human": 0
+  }
+ },
+ "methods_nontricky": {
+  "A": {
+   "n": 4,
+   "correct": 4,
+   "quote_ok": 4,
+   "support_ok": 4,
+   "verified": 4,
+   "abstained": 0,
+   "errors": 0,
+   "needs_human": 0
+  },
+  "B": {
+   "n": 4,
+   "correct": 4,
+   "quote_ok": 4,
+   "support_ok": 4,
+   "verified": 4,
+   "abstained": 0,
+   "errors": 0,
+   "needs_human": 0
+  }
+ },
+ "paired_verified": {
+  "both": 4
+ },
+ "paired_correct": {
+  "both": 4
+ },
+ "paired_verified_tricky": {},
+ "paired_verified_nontricky": {
+  "both": 4
+ },
+ "usage": {
+  "A": {
+   "calls": 2,
+   "errored_calls": 0,
+   "prompt_tokens": 8914,
+   "output_tokens": 665,
+   "thinking_tokens": 0,
+   "latency_s": 202.136,
+   "cost_usd_est": 0.009179
+  },
+  "B": {
+   "calls": 4,
+   "errored_calls": 0,
+   "prompt_tokens": 9598,
+   "output_tokens": 504,
+   "thinking_tokens": 0,
+   "latency_s": 13.743,
+   "cost_usd_est": 0.009089
+  }
+ },
+ "usage_all_records": {
+  "A": {
+   "calls": 4,
+   "errored_calls": 2,
+   "prompt_tokens": 8914,
+   "output_tokens": 665,
+   "thinking_tokens": 0,
+   "latency_s": 527.163,
+   "cost_usd_est": 0.009179
+  },
+  "B": {
+   "calls": 11,
+   "errored_calls": 7,
+   "prompt_tokens": 9598,
+   "output_tokens": 504,
+   "thinking_tokens": 0,
+   "latency_s": 319.608,
+   "cost_usd_est": 0.009089
+  }
+ },
+ "usage_note": "usage = scored records only; usage_all_records adds failed/retried requests. Costs are estimates: API token counts x configured per-token prices.",
+ "cost_per_additional_verified_answer": null
+}
