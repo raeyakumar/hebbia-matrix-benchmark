@@ -3,7 +3,7 @@
 **Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
 
 **The question I wanted to answer.** 
-> I wanted to know whether an AI model answers questions about financial
+I wanted to know whether an AI model answers questions about financial
 filings more reliably when it looks at one company at a time instead of several companies at once. Hebbia's Matrix
 organizes this kind of work as a grid, with one row per document and one column per question, which made me curious
 whether filling that grid one row at a time actually makes the answers more trustworthy.
@@ -66,10 +66,7 @@ was adjusted after the answers came in. \*The second and third rows are later, s
 manual review described in Methods found 7 of the 9 flagged citations supported and 2 inconclusive
 (Alphabet T1, in both setups), and inconclusive cells are not counted as verified. The third row also corrects one rounding mistake in the
 answer key. My verdicts and reasons are in
-[`results/final/manual_review.csv`](results/final/manual_review.csv). The earlier AI-assisted review is kept in
-[`results/final/citation_review.md`](results/final/citation_review.md) and
-[`results/final/adjudication.csv`](results/final/adjudication.csv); the scripts compute the second and third rows
-from that file, and my verdicts give the same counts.
+[`results/final/manual_review.csv`](results/final/manual_review.csv). 
 
 - **Same answers.** The setups agreed in all 75 cells: 71 numerical answers had the same magnitude, and both declined
   the other four. In two of the 71, the one-at-a-time setup wrote capital spending as a negative number, which the
