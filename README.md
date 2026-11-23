@@ -1,6 +1,6 @@
 # The Answer Is in the Footnote: Testing AI Answers Against Financial Filings
 
-**Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
+**Raeya Kumar** · Smeal College of Business, Pennsylvania State University · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
 
 **The question I wanted to answer.** I wanted to know whether an AI model answers questions about financial
 filings more reliably when it looks at one company at a time instead of several companies at once. Hebbia's Matrix
