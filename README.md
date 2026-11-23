@@ -1,4 +1,4 @@
-# Right Quote, Wrong Answer? Testing AI Answers Against Financial Filings
+# The Answer Is in the Footnote: Testing AI Answers Against Financial Filings
 
 **Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
 
