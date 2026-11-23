@@ -3,17 +3,20 @@
 **Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
 
 **The question I wanted to answer.** 
+
 I wanted to know whether an AI model answers questions about financial
 filings more reliably when it looks at one company at a time instead of several companies at once. Hebbia's Matrix
 organizes this kind of work as a grid, with one row per document and one column per question, which made me curious
 whether filling that grid one row at a time actually makes the answers more trustworthy.
 
 **Why I expected one company at a time to help.** 
+
 When the model reads passages from five 10-Ks in a single
 request, it could mix up which passage belongs to which company, or take a number from the wrong year's column.
 Giving it only one company's passages at a time seemed like it should remove that confusion.
 
 **How the test worked.** 
+
 The model never reads a whole 10-K. For each question, a search step pulls the five most
 relevant passages from each company's filing, and the model has to answer using only those passages and copy the
 exact sentence or table row its number came from. Both setups received the same passages, the same instructions and
@@ -22,6 +25,7 @@ separately. An answer only counted as **verified** if the number was right, the 
 passage, and the quote actually supported that number for the right company, year and unit.
 
 **What actually happened.** 
+
 The company-by-company setup did not help. The two setups agreed on all 75
 company-question pairs: 71 numerical answers matched, ignoring sign, and both declined to answer the other four. Under the scoring rules I locked in before the run,
 asking about all five companies at once verified 70 of 75 outcomes, and asking one at a time verified 69 (each
@@ -30,6 +34,7 @@ costing about 7% more. What was harder than getting the right number was checkin
 came from the automatic citation checker, not from the model.
 
 > **An independent project inspired by Hebbia.**
+> 
 > It builds on Hebbia's public description of its Matrix workflow (one row per document, one cell per question). It is not affiliated with, sponsored by or endorsed by Hebbia, and it uses no Hebbia software or data. All filings are public SEC documents.
 
 **Status: complete (final run 2026-11-22).** Every number below comes from saved output in `results/`. The
