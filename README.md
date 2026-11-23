@@ -54,9 +54,9 @@ company-question pairs were verified.
 
 | Scoring tier | A verified | B verified | Both | Only A | Only B | Neither |
 |---|---|---|---|---|---|---|
-| 1. Frozen automatic scorer | 70 | 69 | 69 | 1 | 0 | 5 |
-| 2. + manual citation review* | 72 | 72 | 72 | 0 | 0 | 3 |
-| 3. + manual citation review and answer-key correction* | 73 | 73 | 73 | 0 | 0 | 2 |
+| 1. Original scoring | 70 | 69 | 69 | 1 | 0 | 5 |
+| 2. After manual citation review | 72 | 72 | 72 | 0 | 0 | 3 |
+| 3. After manual citation review and answer-key correction | 73 | 73 | 73 | 0 | 0 | 2 |
 
 **The first row is the main result.** It comes from the scoring rules I locked in before the run, so nothing in it
 was adjusted after the answers came in. \*The second and third rows are later, secondary checks. For the second row, the
