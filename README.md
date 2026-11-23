@@ -1,6 +1,6 @@
 # Right Quote, Wrong Answer? Testing AI on Financial Filings
 
-**Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 4 pages)](paper/paper.pdf) · [source](paper/paper.md)
+**Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
 
 **The question I wanted to answer.** I wanted to know whether an AI model answers questions about financial
 filings more reliably when it looks at one company at a time instead of several companies at once. Hebbia's Matrix
@@ -18,9 +18,10 @@ the same model (Gemini 3.8 Flash), so the only difference was whether the compan
 separately. An answer only counted as **verified** if the number was right, the quote really appeared in the
 passage, and the quote actually supported that number for the right company, year and unit.
 
-**What actually happened.** The company-by-company setup did not help. Both setups gave the same number for all 75
-company-question pairs, and neither reported a wrong number. Under the scoring rules I locked in before the run,
-asking about all five companies at once verified 70 of 75 answers, and asking one at a time verified 69 while
+**What actually happened.** The company-by-company setup did not help. The two setups agreed on all 75
+company-question pairs: 71 numerical answers matched, ignoring sign, and both declined to answer the other four. Under the scoring rules I locked in before the run,
+asking about all five companies at once verified 70 of 75 outcomes, and asking one at a time verified 69 (each
+total includes three correct decisions not to answer) while
 costing about 7% more. What was harder than getting the right number was checking the citation: most of the misses
 came from the automatic citation checker, not from the model.
 
@@ -65,8 +66,10 @@ answer key. The quoted evidence for each of the 9 cells is in
 [`results/final/citation_review.md`](results/final/citation_review.md), and the verdicts are in
 [`results/final/adjudication.csv`](results/final/adjudication.csv).
 
-- **Same answers.** Both setups gave the same number in all 75 cells. The only differences were whether capital
-  spending was written as a negative number and how numbers were formatted. Neither setup reported a wrong number.
+- **Same answers.** The setups agreed in all 75 cells: 71 numerical answers had the same magnitude, and both declined
+  the other four. In two of the 71, the one-at-a-time setup wrote capital spending as a negative number, which the
+  scoring rules treat as equivalent. Units and number formats sometimes differed in wording. The only numerical
+  answer scored incorrect was Microsoft's F9, where both gave the exact $16,719 million and the key was rounded.
 - **Trick questions, reported separately.** The five trick questions were designed to catch specific mistakes, so I
   report them on their own. Both setups answered all 25 trick cells correctly and verified 23 of 25 under the main
   scoring. For example, both read Meta's U.S.-only revenue ($74.78B) from a footnote instead of the "United States
@@ -161,7 +164,8 @@ cd src && ../.venv/bin/python fetch_filings.py && ../.venv/bin/python extract.py
 cd src && ../.venv/bin/python build_answer_key.py && ../.venv/bin/python validate_key.py benchmark/answer_key.csv
 ```
 
-Offline tests (checker cases, oracle = 100% verified, wrong-column adversary = 0% verified):
+Offline tests (checker cases; answers taken from the key = 148 of 150 verified and 2 unclear, which the test
+expects; deliberately wrong answers = 0 of 64 verified):
 
 ```bash
 .venv/bin/python tests/test_score.py && .venv/bin/python tests/test_key_oracle.py
