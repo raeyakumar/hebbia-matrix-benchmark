@@ -1,117 +1,137 @@
 # Right Quote, Wrong Answer? Testing AI on Financial Filings
 
-**Raeya Kumar** · First-year Business Analytics student, Penn State
+Raeya Kumar
 
-*An independent experiment inspired by Hebbia's public description of its Matrix workflow. Not affiliated with or endorsed by Hebbia. Run on 22 November 2026.*
+First-year Business Analytics student, Penn State
+
+Independent study inspired by Hebbia's Matrix; not affiliated with or endorsed by Hebbia
+
+Experiment run November 22, 2026
 
 ## Abstract
 
-AI tools that pull facts out of many documents can ask a language model about all of the documents in one request, or about one document at a time. I tested whether asking about one company at a time makes financial answers more likely to be both correct and supported by the passage the model quotes, when the model, settings, instructions and evidence stay the same. The benchmark has 15 questions about the latest Form 10-K filings of Apple, Microsoft, Alphabet, Meta and Amazon. Five of the questions are deliberate traps (units, reporting periods, a footnote and missing evidence), and two form a matched pair that asks for two different numbers from the same passage. Gemini 3.8 Flash answered every question twice: once for all five companies in a single request (Method A), and once for each company in its own request (Method B), using identical excerpts. Both methods returned the same number in all 75 company-by-question comparisons, answered every trap correctly and made no numerically wrong claim. Under the automatic scorer, which I froze before the run and which gives the main result, Method A produced 70 verified answers out of 75 and Method B produced 69: 69 comparisons were verified by both methods, 1 by A only, 0 by B only and 5 by neither (exact McNemar p = 1.0). A follow-up, AI-assisted review of the 9 cells that the automatic support check could not confirm compared them with the original filings and found 7 supported and 2 inconclusive; counting those verdicts, both methods verify 72 of 75. Method B cost about 7% more (an estimated $0.198 against $0.185 for the whole run), and because it never produced an extra verified answer, the cost per additional verified answer is undefined. With five companies and about 12,700 prompt tokens per request, splitting the request did not help, and the weakest part of the pipeline was the automatic citation check, not the model.
+When an AI model extracts figures from company filings, can a reader trust both the number and the citation behind it? This study compares two ways of asking the same model the same financial questions. The pooled method asks about five companies in one request, while the company-by-company method sends a separate request for each company. Both received identical excerpts. Across 75 comparisons, the methods agreed every time, with 71 identical numerical answers after ignoring sign and four shared decisions not to answer. Agreement does not establish that an answer is correct or supported. Under the original scoring rules, which also required supporting evidence for each numerical claim, 70 outcomes were verified for the pooled method and 69 for the company-by-company method. For this model and these filings, separating the companies did not improve performance. Most unverified outcomes came from limits in the automatic scoring or the benchmark itself, which suggests that checking a citation deserves as much attention as producing the answer.
 
-## 1. Question
+## 1. Introduction
 
-When the same model receives the same evidence, does answering one company at a time improve the percentage of financial claims that are correct *and* supported by their citations? And what does each additional verified answer cost?
+A financial figure is useful only when a reader knows exactly what it measures. Meta's 2025 annual report shows why this can be difficult. Its revenue table reports $78,866 million for the United States and Canada combined, while a footnote reports $74.78 billion for the United States alone ([Meta Platforms, 2026, Note 2](https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm)). A model asked for U.S. revenue could copy the table row word for word and still be wrong by about $4.1 billion. The quote would be genuine, but it would not support a claim about the United States alone. I included this case as a benchmark challenge. In the saved outputs, neither method made the mistake: both answered $74.78 billion and quoted the footnote.
 
-The motivation is a common product design. A matrix of documents × questions can be filled row by row, with one model request per document, or in batches. Per-document requests are easier to run in parallel and keep each request small, but they repeat the instructions and cost more requests. Batching is cheaper but risks mixing up documents: citing one company's passage for another, or swapping periods. I wanted to measure that trade-off on a task where errors are easy to define.
+The example raises a question about how a model should be given its evidence. When passages from several companies appear together, the model must keep track of which figure belongs to which company, year, and unit. Asking about one company at a time removes the other companies from view, so I expected it to reduce confusion. It also repeats the instructions in every request, which adds cost.
 
-The title names the failure I was looking for: a quote that really appears in the source but does not support the stated number, for example a table row whose *other* column holds the answer, or a sentence that contains two figures. A check that a quote appears in the source cannot catch this, so support is scored separately.
+I therefore asked whether, when the same model receives the same evidence, answering one company at a time increases the share of financial claims that are correct and supported by their citations. I also asked what each additional verified answer would cost. Giving both methods identical excerpts made the comparison fair because neither could benefit from finding better passages. The remaining difference was whether a company's excerpts were presented alone or alongside those of the other four.
 
-## 2. Setup
+Two earlier studies motivate this design. FinanceBench tested 16 model configurations on 150 questions about public companies and found frequent errors and refusals (Islam et al., 2023). Gao et al. (2023) evaluated whether models that write answers with citations are fluent, correct, and adequately supported by the passages they cite. This experiment asks a narrower question: if the excerpts are held fixed, does presenting companies together or separately change whether an answer is correct and supported?
 
-**Filings.** The most recent 10-K for each company was downloaded from SEC EDGAR, and the URL, accession number, filing date, fiscal year-end and SHA-256 of every file were recorded (`data/filings.csv`).
+## 2. Methods
 
-| Company | Fiscal year end | Filed | Accession |
+### Filings and evidence
+
+The sample contains the most recent Form 10-K available on the run date for five large technology companies (Table 1). Because their fiscal years end at different times, a question about fiscal year 2025 refers to the prior-year column for Apple and Microsoft and the latest column for the other three.
+
+Table 1. Filings used. Each company name links to the exact SEC document.
+
+| Company | Fiscal year end | Filing date | SEC accession number |
 |---|---|---|---|
-| Apple | 2026-09-26 | 2026-11-03 | 0000320193-26-000026 |
-| Microsoft | 2026-06-30 | 2026-07-29 | 0001193125-26-323660 |
-| Alphabet | 2025-12-31 | 2026-02-05 | 0001652044-26-000018 |
-| Meta | 2025-12-31 | 2026-01-29 | 0001628280-26-003942 |
-| Amazon | 2025-12-31 | 2026-02-06 | 0001018724-26-000004 |
+| [Apple](https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm) | September 26, 2026 | November 3, 2026 | 0000320193-26-000026 |
+| [Microsoft](https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm) | June 30, 2026 | July 29, 2026 | 0001193125-26-323660 |
+| [Alphabet](https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm) | December 31, 2025 | February 5, 2026 | 0001652044-26-000018 |
+| [Meta](https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm) | December 31, 2025 | January 29, 2026 | 0001628280-26-003942 |
+| [Amazon](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm) | December 31, 2025 | February 6, 2026 | 0001018724-26-000004 |
 
-**Extraction.** The inline-XBRL HTML was converted to text in which every table row becomes one line of `cell | cell` values. SEC's split `$` and `)` cells are merged back onto their numbers, and table titles, unit lines (for example "(In millions)"), column headers and footnotes stay attached to their tables. The text was cut into excerpts of about 1,800 characters with stable IDs (for example `AAPL-0109`). If a table is split, its title, unit line and year header are repeated on every part.
+Each filing was converted to text in a way that kept table rows, years, units, and footnotes together where possible, and then divided into excerpts of roughly 1,800 characters. For each question, BM25, a method that ranks passages by keyword overlap, selected five excerpts per company. Some search queries were adjusted during development, before the final run, after a check against the answer key showed missing passages. The selected excerpts were then frozen, so the results describe answering from prepared evidence and not the difficulty of finding it.
 
-**Evidence.** For each question, BM25 retrieval over each company's excerpts selected 5 excerpts per company, using a single query that does not name any company. The selection was made **once** and frozen to `benchmark/evidence/`. Method A received all five companies' excerpts concatenated; Method B received the identical excerpts for its company only. A programmatic check confirmed that each company's excerpt block in B's prompts is byte-identical to the same block in A's prompts.
+### Questions and answer key
 
-**Methods.** Both methods used one system instruction, one prompt template, one JSON output schema (company, status, answer, value, unit, period, excerpt id, quote) and the model `gemini-3.8-flash` through the REST API. Settings were temperature 0, top-p 1, seed 7, thinking level `low` (the model's lowest documented level; thinking cannot be disabled) and a maximum of 8,192 output tokens. Each excerpt block was headed with the company name and fiscal year-end in both methods. The instruction told the model to use only the excerpts, quote verbatim, report the value as stated with its unit and period, and answer "insufficient_evidence" rather than guess.
+The benchmark asks 15 questions about each of the five companies, which produces 75 comparisons. Ten questions cover standard measures such as net income and operating cash flow. Five were designed to be difficult: diluted share counts reported in different units, revenue for a specified fiscal year, market value measured at mid-year, U.S. revenue that may depend on a footnote, and a credit-facility balance that three of the filings do not provide.
 
-## 3. Benchmark
+Two of the ten standard questions form a matched pair. One asks how much stock a company repurchased, and the other asks how much it was still authorized to repurchase. They use the same excerpts, so a genuine quotation can support one answer but not the other.
 
-The benchmark has 15 final questions plus 2 practice questions that were used only in the pilot. Ten are routine (net income, diluted EPS, cash, total assets, gross capex, operating income, operating cash flow, equity, and the matched pair). Five are traps:
+Claude Code, an AI coding assistant, drafted the questions and answer key and built the experiment. I decided how to treat seven flagged answer-key cells and approved the key before the final run. A script confirmed that each supporting passage in the key appeared word for word in the filing text. The key was never included in a model prompt, and the questions, excerpts, prompts, and scoring rules were frozen before the run.
 
-* **T1, units:** the diluted share count. Apple states share counts in *thousands* inside statements labeled "in millions", and Alphabet's count is split across share classes.
-* **T2, period:** revenue for "fiscal year 2025". This is the *prior-year* column for Apple and Microsoft, and the latest year for the others. Alphabet and Amazon also order columns oldest to newest.
-* **T3, period and units:** the cover-page market value held by non-affiliates. It is measured at mid-year, not year-end, and is stated as whole dollars by some companies and as "trillion" by others.
-* **T4, footnote:** U.S.-only revenue. Meta's table row is "United States **and Canada**" ($78,866M); the U.S.-only $74.78B appears only in a footnote.
-* **T5, insufficient evidence:** borrowings under unsecured revolving credit facilities. Apple, Microsoft and Meta describe none, so the correct answer is to abstain. Alphabet and Amazon state $0 drawn next to large capacity figures.
+### Two ways of presenting the evidence
 
-**Matched pair (F9/F10).** F9 asks how much stock was repurchased during the year and F10 how much authorization remained. Both use the same retrieval query, so each method saw identical evidence for both questions. In Meta's filing the two answers sit in adjacent sentences: "...for an aggregate amount of $26.26 billion. As of December 31, 2025, $25.03 billion remained available...". A verbatim quote from that passage supports one answer and not the other.
+The pooled method sent one request per question containing the excerpts for all five companies, for 15 requests in total. The company-by-company method sent one request for each company and question, for 75 requests. A check of the saved prompts confirmed that all 75 sets of company excerpts matched their counterparts in the pooled prompts.
 
-**Answer key.** The AI assistant that ran the study filled in the 75 company–question cells by reading the filings. Every supporting passage was machine-checked to appear verbatim in the extracted text, and every answerable cell's passage was confirmed to be inside the frozen evidence (72/72). The key, with a plain-language note on every ambiguous cell, is in `benchmark/answer_key.csv` and `benchmark/ANSWER_KEY_REVIEW.md`. It was never placed in a prompt. I reviewed the key and settled seven judgment calls before the run. For example, Apple's remaining authorization is accepted as $114,004M because the excerpts themselves state that total. Questions, evidence, prompts, settings and scoring rules were then frozen in one Git commit with SHA-256 hashes (`benchmark/FREEZE.json`), and an integrity check before the run confirmed that nothing had changed.
+Both methods used Gemini 3.8 Flash with the same instructions, output format, and settings: temperature 0, top-p 1, seed 7, low thinking, and a limit of 8,192 output tokens. A token is a small unit of text used for model processing and billing. The model had to rely only on the excerpts, cite one excerpt with a word-for-word quote, state the unit and period, and report insufficient evidence instead of guessing.
 
-## 4. Scoring
+### Scoring
 
-Each method × question × company cell receives three independent checks:
+Every numerical answer received three checks:
 
-1. **Correct:** the claimed value, converted to base units using the model's own unit label, lies within 0.1% of the key (0.01% for per-share amounts). Magnitudes are compared because no expected answer is negative.
-2. **Quote check:** the quote appears verbatim, ignoring case and whitespace, in the cited excerpt. This shows only that the text exists.
-3. **Support check:** the cited excerpt belongs to the row's company; the claimed value appears in the quote at the excerpt's stated scale; and the period matches. For tables, the matching cell is mapped to its column's year header; for prose, the year must appear in the sentence. Cases the rules cannot decide are labeled *unclear* and passed to human review rather than counted as passes.
+- **Answer accuracy:** The value and unit agree with the answer key within 0.1 percent, or 0.01 percent for per-share amounts. Signs are ignored because filings often show cash outflows as negative numbers.
+- **Quote match:** The quotation appears in the cited excerpt, ignoring differences in capitalization and spacing.
+- **Citation support:** The excerpt belongs to the right company, and the quote contains the claimed value at the right scale and for the year in the answer key.
 
-An answer is **verified** only if all three checks pass. **Abstentions** (`insufficient_evidence` or a null value) count as correct, and as verified, only where the key expects one (T5 for three companies). Elsewhere they count as wrong and are reported separately from wrong numbers. API failures were to be kept as error rows and scored as wrong; the final run had none.
+A numerical answer is verified only when it passes all three. A decision not to answer is verified only when the answer key also expects one, and it needs no quotation. When the rules could not settle citation support, the result was marked unclear and did not count as verified. The support check compares the quote with the expected year; it does not separately grade the period the model wrote.
 
-Before the run, the checker was tested offline. An "oracle" that answers every cell from the key scored 150/150 verified. An adversary that quotes the correct row but reports another column's number, or swaps the matched-pair answers, scored 0/64 verified, and 61 of those 64 cells also failed the support check.
+After the run, Claude Code reviewed the nine answers whose support had been marked unclear or failed, comparing each citation with the original SEC filing. This was a follow-up AI-assisted review by the same assistant that built the benchmark, and no independent human verification is reported. It did not change the original scores.
 
-## 5. Results
+## 3. Results
 
-The final run sent 90 requests (15 for A, 75 for B) with 0 errors and 0 retries; every request ended with `STOP`. All figures below come from `results/final/` and `results/results_final.csv`.
+### Agreement and verification
 
-**Main result.** The frozen automatic score (tier 1) is the main result. Two clearly labeled secondary tiers follow. Tier 2 replaces only the automatic support verdicts with an AI-assisted review against the original filings (`results/final/citation_review.md`); cells judged inconclusive are not counted as verified. Tier 3 also corrects one answer-key defect.
+All 90 requests completed without an error or retry. The methods agreed in all 75 comparisons. They gave 71 numerical answers with the same magnitude and both declined to answer in the other four. In two of the 71, the company-by-company method wrote capital spending as a negative number, which the scoring rules treated as equivalent.
 
-| Tier | A verified | B verified | Both | Only A | Only B | Neither |
+Verification was slightly lower than agreement because it also requires accuracy and support. The original rules verified 70 of 75 outcomes for the pooled method and 69 of 75 for the company-by-company method (Table 2). Each total includes three correct decisions not to answer. The single difference was Alphabet's operating income, where both methods gave the same correct number but cited different tables, and the scorer could not interpret the one cited by the company-by-company method.
+
+Table 2. Verified outcomes out of 75. The original scoring is the main result.
+
+| Scoring | Pooled | Company-by-company | Both | Pooled only | Company only | Neither |
 |---|---|---|---|---|---|---|
-| 1. Frozen automatic scorer | 70/75 | 69/75 | 69 | 1 | 0 | 5 |
-| 2. + AI-assisted support review | 72/75 | 72/75 | 72 | 0 | 0 | 3 |
-| 3. + key rounding fix | 73/75 | 73/75 | 73 | 0 | 0 | 2 |
+| Original rules | 70 | 69 | 69 | 1 | 0 | 5 |
+| After AI-assisted review | 72 | 72 | 72 | 0 | 0 | 3 |
+| After review and key correction | 73 | 73 | 73 | 0 | 0 | 2 |
 
-Both methods were correct on 73/75 cells under the frozen key. The quote check passed for 71 of 71 answered cells in both methods: no quote was invented or paraphrased. The automatic support check passed 67 (A) and 66 (B). With one discordant pair, the exact McNemar test gives p = 1.0; there is no evidence of a difference.
+An exact McNemar test, which compares paired outcomes using only the cases where the methods differ, gives p = 1.0 for the original scores. With one differing case, the test cannot detect a difference; at least six, all in the same direction, would be needed for a two-sided p-value below 0.05. The comparisons also share questions and companies, so they are not fully independent. The result shows no evidence of an advantage here, but it does not show that the methods are equivalent in general.
 
-**Same answers.** The two methods gave the same number in all 75 cells. The only differences were that B reported Amazon's and Microsoft's capex as negative outflows (scored on magnitude, as the frozen rule specifies) and integer-versus-decimal formatting. They cited different excerpts in 8 cells, for example the income statement in one method and the MD&A table in the other. Seven of these were answered cells, and both citations were verified in every one, although one (B, Alphabet F6) needed the tier-2 re-reading. The eighth was a correct abstention.
+### Difficult questions and unanswered cases
 
-**Tricky questions, reported separately.** Both methods were correct on all 25 trap cells and verified on 23/25 under tier 1 (24/25 in tier 2; Alphabet T1 remains inconclusive). Both reported Meta's U.S.-only $74.78B from the footnote rather than the "United States and Canada" row, read Apple's share count as thousands, chose the prior-year column for Apple's and Microsoft's fiscal 2025 revenue, gave the mid-year measurement dates for market value, and abstained on T5 for Apple, Microsoft and Meta without inventing a figure.
+On the five difficult questions, both methods were correct in all 25 cases and verified in 23. In the Meta example, both selected the U.S.-only footnote. On the matched pair, each method was correct in nine of ten cases and verified in eight under the original rules. The one case scored incorrect was Microsoft's repurchase amount. Both methods reported $16,719 million from a detailed table, but the answer key contained the rounded figure of $16.7 billion, and the 0.11 percent gap exceeded the allowed tolerance.
 
-**Abstentions.** Each method abstained 4 times: 3 correct (T5) and 1 incorrect, on Alphabet F2. During my review of the answer key, F2 was reworded to ask for company-wide EPS "as reported on its consolidated income statement". The retrieved evidence held Note 12, whose *Consolidated* column shows the correct $10.81, but not the income statement itself, and both methods declined on that ground. It counts as wrong in every tier, and the cause is the question's wording, not either method.
+Each method declined to answer four times. Three of these matched the answer key. The fourth concerned Alphabet's diluted earnings per share. The question asked for the figure reported on the income statement, but the excerpts contained only a note with the same figure. This was a flaw in the question, and the case still counts as incorrect in every row of Table 2.
 
-**The matched pair.** All ten pair cells were correct in both methods. For Meta, both methods cited excerpt `META-0229`, quoted the "$26.26 billion" sentence for F9 and the "$25.03 billion" sentence for F10, and passed all three checks. For Microsoft, both methods reported the exact program total, $16,719M, from Note 15. That value differs from the answer key's rounded $16.7B by 0.11%, just outside the tolerance, which is the defect corrected in tier 3.
+### Why some citations were not verified
 
-**Cost and speed.** Costs are estimates: API token counts multiplied by the published paid-tier prices ($0.75 per million input tokens, $3.75 per million output tokens including thinking).
+Every numerical answer included a quotation that appeared in its cited excerpt. However, the automatic support check did not pass nine of the 142 numerical answers. The follow-up AI-assisted review judged seven of these supported. The checker could not interpret some tables with extra columns and missed one unit description. The other two were judged inconclusive. Both methods cited the correct Alphabet share count, but the unit appeared only in a neighboring excerpt that they received and did not cite.
 
-| | Method A | Method B |
+The second row of Table 2 uses those judgments, and the third also accepts Microsoft's exact figure. These rows help explain the original results but do not replace them, because both changes were made after the outputs were known.
+
+### Cost and time
+
+The company-by-company method cost an estimated $0.198, compared with $0.185 for the pooled method, an increase of 6.9 percent (Table 3). It used 11.0 percent more input tokens, which is consistent with repeating the instructions in more requests. The cost per additional verified answer is not reported because the more expensive method produced no additional verified answers under any scoring row.
+
+Table 3. Resource use for the final run. Costs are estimates based on token counts and list prices.
+
+| Measure | Pooled | Company-by-company |
 |---|---|---|
 | Requests | 15 | 75 |
-| Prompt tokens | 190,801 (12,720 / request) | 211,697 (2,823 / request) |
-| Output tokens (incl. thinking) | 11,237 | 10,455 |
-| Estimated cost | $0.185 | $0.198 (+6.9%) |
-| Latency per question | 6.9 s (one request) | 15.7 s run one after another; about 4.6 s if run in parallel (estimated as the slowest of each question's five requests) |
+| Input tokens | 190,801 | 211,697 |
+| Output tokens, including thinking | 11,237 | 10,455 |
+| Estimated cost | $0.185 | $0.198 |
+| Mean time per question, run in sequence | 6.9 seconds | 15.7 seconds |
 
-B's extra cost comes almost entirely from repeating the system instruction and question in five requests instead of one. **Cost per additional verified answer:** under tier 1, A, not B, has the one extra verified answer and is also cheaper. Under tiers 2 and 3 the methods tie. B therefore never produced an additional verified answer, and the ratio is undefined, so none is reported.
+Prices were $0.75 per million input tokens and $3.75 per million output tokens on the run date. If each question's five company requests had run at the same time, the slowest would have averaged 4.6 seconds. That figure is an estimate, since the requests were sent one after another.
 
-## 6. What actually failed
+## 4. Limitations
 
-No answer was a wrong number. The automatic support check failed or marked unclear 9 answered cells, 6.3% of the 142 answered cells; none of the 133 automatic passes was audited. The AI-assisted review of those 9 cells checked each quote against the original SEC HTML and judged company, metric, period and unit separately. Seven were supported, and the checker had missed them for three reasons: a table whose header mixes years with "$ Change | % Change" columns; a Shares/Amount table with two cells per year; and the unit phrase "(net income in millions and shares in thousands)", which the checker's unit pattern did not recognize. Two were inconclusive: both methods cited Alphabet's 2025 diluted-share table for T1, which shows the right company, metric and period, but its unit ("in millions") is stated only in a separate excerpt that both methods received and neither cited. Those cells are correct answers whose citation does not, by itself, establish the unit, and they are not counted as verified. The remaining misses came from the benchmark itself: one rounded answer-key value and one over-specified question. **In this experiment the bottleneck was verification, not generation**, and the automatic verifier erred in the safe direction.
+The study is small and covers five large technology companies, one model, and one run per method. A temperature of 0 does not guarantee the same output every time. The pooled requests averaged only 12,720 input tokens, so the results may not extend to more companies, longer documents, or companies that are easier to confuse.
 
-Human verification time was not measured and is not reported. The tier-2 and tier-3 judgments are an AI-assisted review by the assistant that ran the study, not independent human verification. Each is recorded with the quoted evidence in `results/final/citation_review.md` and `results/final/adjudication.csv`.
+The evidence was prepared to make most questions answerable, and some retrieval choices were informed by the answer key during development. The same AI assistant drafted the key, built the scoring code, and conducted the follow-up review. This creates a risk of shared errors that an independent reviewer could reduce.
 
-## 7. Limitations
+The scorer itself was imperfect. It was tested on answers taken directly from the key, where it verified 148 of 150 and left two unclear, both for the Alphabet share count discussed above. It verified none of 64 deliberately incorrect answers, although its support check alone passed one of them. The 133 citations that passed automatically in the final run were not reviewed again. Human verification time was not measured.
 
-* **Small and easy.** With 75 paired cells, the study can detect only large effects. Each A prompt was about 12,700 tokens over five companies; batching risks are likely to grow with more documents, longer excerpts and more similar entities. A null result here does not show that per-document calls never help.
-* **One model, one run.** Temperature 0 does not guarantee deterministic output, and each condition ran once.
-* **Retrieval held fixed.** Evidence recall was engineered to be complete (72/72), so the study isolates answer generation from retrieval. In production, misses in retrieval would interact with both methods.
-* **Key built with AI assistance.** The AI assistant that ran the study built the key, and I reviewed it; it was not built by independent annotators. Two defects were found only after the run, and both are disclosed above.
-* **Prices change.** Gemini 3.8 Flash list prices double on 1 January 2027; ratios between methods are more durable than dollar amounts.
+## 5. Conclusion
 
-## 8. Conclusion
+For these five filings and this model, asking about one company at a time did not increase the number of verified answers, and it cost slightly more. The methods agreed throughout, yet agreement alone did not show that their answers were supported. The unverified cases pointed instead to weaknesses in the scoring rules, answer key, question wording, and, for one company, the citation itself. A useful next step would be to increase the number and similarity of companies in each request while having an independent person review the citations.
 
-On five large-cap 10-Ks, with identical evidence, settings and checker, answering one company at a time did not improve the rate of correct, supported financial claims. Both designs made the same numerical answers and passed the same traps. They failed only where the answer key, a question or the checker failed, or, in one cell for both methods, where the citation left the unit to a neighboring excerpt. Batching was about 7% cheaper. The design choice that mattered was scoring support separately from quote existence: it surfaced every ambiguity for review and accepted none of the 64 deliberately wrong answers in testing. A natural next step is to scale the matrix (more companies per request, longer excerpts, near-duplicate entities) until the methods diverge, and to measure human review time directly.
+## Data and code note
 
-## Reproducibility
+The [project repository](https://github.com/raeyakumar/hebbia-matrix-benchmark) contains the prompts, frozen excerpts, full output format, raw responses, scores, and instructions for reproducing the study. It also records file hashes and the [commit that froze the benchmark](https://github.com/raeyakumar/hebbia-matrix-benchmark/commit/bdebd2a) before the final run.
 
-Code, frozen inputs and raw outputs are in the repository. The `README` gives exact commands. Raw model responses, token usage, latency and errors are in `results/final/calls.jsonl`; per-cell scores are in `results/final/scored_rows.csv`; and the side-by-side results with all tiers are in `results/results_final.csv`.
+## References
+
+Gao, T., Yen, H., Yu, J., & Chen, D. (2023). Enabling large language models to generate text with citations. Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing, 6465–6488. [https://doi.org/10.18653/v1/2023.emnlp-main.398](https://doi.org/10.18653/v1/2023.emnlp-main.398)
+
+Islam, P., Kannappan, A., Kiela, D., Qian, R., Scherrer, N., & Vidgen, B. (2023). FinanceBench: A new benchmark for financial question answering. arXiv. [https://arxiv.org/abs/2311.11944](https://arxiv.org/abs/2311.11944)
+
+Meta Platforms, Inc. (2026). Form 10-K for the fiscal year ended December 31, 2025. Note 2, Revenue: revenue by geography table and footnote 1. U.S. Securities and Exchange Commission. [SEC filing](https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm)
