@@ -3,7 +3,7 @@
 **Raeya Kumar** · First-year Business Analytics student, Penn State · [Paper (PDF, 5 pages)](paper/paper.pdf) · [source](paper/paper.md)
 
 **The question I wanted to answer.** 
-I wanted to know whether an AI model answers questions about financial
+> I wanted to know whether an AI model answers questions about financial
 filings more reliably when it looks at one company at a time instead of several companies at once. Hebbia's Matrix
 organizes this kind of work as a grid, with one row per document and one column per question, which made me curious
 whether filling that grid one row at a time actually makes the answers more trustworthy.
