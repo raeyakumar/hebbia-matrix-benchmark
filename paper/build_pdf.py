@@ -62,14 +62,14 @@ def table(lines, width):
 def build():
     doc = SimpleDocTemplate(str(OUT), pagesize=letter, leftMargin=MARGIN, rightMargin=MARGIN,
                             topMargin=0.8 * inch, bottomMargin=0.85 * inch, author="Raeya Kumar",
-                            title="Right Quote, Wrong Answer? Testing AI on Financial Filings", invariant=1)
+                            title="The Answer Is in the Footnote: Testing AI Answers Against Financial Filings", invariant=1)
     width = letter[0] - 2 * MARGIN - 12  # SimpleDocTemplate frames pad 6pt on each side
     blocks = [b for b in re.split(r"\n\s*\n", SRC.read_text().strip())]
     story, section, caption = [], None, None
     for b in blocks:
         lines = b.split("\n")
         if b.startswith("# "):
-            story += [Spacer(1, 14), Paragraph(inline(b[2:]).replace("? ", "?<br/>", 1), TITLE)]
+            story += [Spacer(1, 14), Paragraph(inline(b[2:]).replace(": ", ":<br/>", 1), TITLE)]
         elif b.startswith("## "):
             if section is None:
                 story.append(Spacer(1, 10))

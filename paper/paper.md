@@ -1,22 +1,20 @@
-# Right Quote, Wrong Answer? Testing AI on Financial Filings
+# The Answer Is in the Footnote: Testing AI Answers Against Financial Filings
 
 Raeya Kumar
 
-First-year Business Analytics student, Penn State
+Smeal College of Business, Pennsylvania State University
 
-Independent study inspired by Hebbia's Matrix; not affiliated with or endorsed by Hebbia
-
-Experiment run November 22, 2026
+November 2026
 
 ## Abstract
 
-When an AI model extracts figures from company filings, can a reader trust both the number and the citation behind it? This study compares two ways of asking the same model the same financial questions. The pooled method asks about five companies in one request, while the company-by-company method sends a separate request for each company. Both received identical excerpts. Across 75 comparisons, the methods agreed every time, with 71 identical numerical answers after ignoring sign and four shared decisions not to answer. Agreement does not establish that an answer is correct or supported. Under the original scoring rules, which also required supporting evidence for each numerical claim, 70 outcomes were verified for the pooled method and 69 for the company-by-company method. For this model and these filings, separating the companies did not improve performance. Most unverified outcomes came from limits in the automatic scoring or the benchmark itself, which suggests that checking a citation deserves as much attention as producing the answer.
+When an AI model extracts a figure from company filings, can a reader trust both the number and the citation that supports it? This study compares two ways of asking the same model the same financial questions. The pooled method asks five companies in one request, while the company-by-company method sends a separate request for each company. Both received identical excerpts. Across 75 comparisons, the methods agreed every time, with 71 identical numerical answers after ignoring sign and four shared decisions not to answer. Agreement does not establish that an answer is correct or supported. Under the original scoring rules, which also required supporting evidence for each numerical claim, 70 outcomes were verified for the pooled method and 69 for the company-by-company method. For this model and these filings, separating the companies did not improve performance. Most unverified outcomes came from limits in the automatic scoring or the benchmark itself, which suggests that checking a citation deserves as much attention as producing the answer.
 
 ## 1. Introduction
 
 A financial figure is useful only when a reader knows exactly what it measures. Meta's 2025 annual report shows why this can be difficult. Its revenue table reports $78,866 million for the United States and Canada combined, while a footnote reports $74.78 billion for the United States alone ([Meta Platforms, 2026, Note 2](https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm)). A model asked for U.S. revenue could copy the table row word for word and still be wrong by about $4.1 billion. The quote would be genuine, but it would not support a claim about the United States alone. I included this case as a benchmark challenge. In the saved outputs, neither method made the mistake: both answered $74.78 billion and quoted the footnote.
 
-The example raises a question about how a model should be given its evidence. When passages from several companies appear together, the model must keep track of which figure belongs to which company, year, and unit. Asking about one company at a time removes the other companies from view, so I expected it to reduce confusion. It also repeats the instructions in every request, which adds cost.
+The example raises a question about how a model should be given information. When passages from several companies appear together, the model must keep track of which figure belongs to which company, year, and unit. Asking about one company at a time removes the other companies from view, so I expected it to reduce confusion. It also repeats the instructions in every request, which adds cost.
 
 I therefore asked whether, when the same model receives the same evidence, answering one company at a time increases the share of financial claims that are correct and supported by their citations. I also asked what each additional verified answer would cost. Giving both methods identical excerpts made the comparison fair because neither could benefit from finding better passages. The remaining difference was whether a company's excerpts were presented alone or alongside those of the other four.
 
@@ -46,7 +44,7 @@ The benchmark asks 15 questions about each of the five companies, which produces
 
 Two of the ten standard questions form a matched pair. One asks how much stock a company repurchased, and the other asks how much it was still authorized to repurchase. They use the same excerpts, so a genuine quotation can support one answer but not the other.
 
-I drafted the benchmark questions, and Claude Code prepared the answer key. A Python script confirmed that each supporting quotation appeared in the corresponding filing. I approved the key before the final run. The questions, excerpts, prompts, and scoring rules were fixed before the run, and both methods received prompts that excluded the answer key.
+A Python script confirmed that each supporting quotation appeared in the corresponding filing. I approved the key before the final run. The questions, excerpts, prompts, and scoring rules were fixed before the run, and both methods received prompts that excluded the answer key.
 
 ### Two ways of presenting the evidence
 
