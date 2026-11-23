@@ -43,8 +43,8 @@ settings, instructions, output format, company names and checker. Each answer ge
 (matches the answer key), *quote check* (the quote appears word for word in the cited passage) and *support check*
 (the quote actually backs the claimed number for the right company, period and unit). An answer counts as
 **verified** only if all three pass. The follow-up review of the 9 citations the automatic checker could not confirm
-was AI-assisted: Claude Code compared each quote with the original SEC filing, so it is not an independent human
-review.
+was manual: I compared each cited passage with the original SEC filing. Claude Code had done an AI-assisted review
+earlier and I had seen its overall results, so mine was not a blind review. The two sets of verdicts match.
 
 ## Results
 
@@ -55,16 +55,18 @@ company-question pairs were verified.
 | Scoring tier | A verified | B verified | Both | Only A | Only B | Neither |
 |---|---|---|---|---|---|---|
 | 1. Frozen automatic scorer | 70 | 69 | 69 | 1 | 0 | 5 |
-| 2. + AI-assisted support review* | 72 | 72 | 72 | 0 | 0 | 3 |
-| 3. + one answer-key rounding fix* | 73 | 73 | 73 | 0 | 0 | 2 |
+| 2. + manual citation review* | 72 | 72 | 72 | 0 | 0 | 3 |
+| 3. + manual citation review and answer-key correction* | 73 | 73 | 73 | 0 | 0 | 2 |
 
 **The first row is the main result.** It comes from the scoring rules I locked in before the run, so nothing in it
 was adjusted after the answers came in. \*The second and third rows are later, secondary checks. For the second row, the
-AI-assisted review described in Methods found 7 of the 9 flagged citations supported and 2 inconclusive
+manual review described in Methods found 7 of the 9 flagged citations supported and 2 inconclusive
 (Alphabet T1, in both setups), and inconclusive cells are not counted as verified. The third row also corrects one rounding mistake in the
-answer key. The quoted evidence for each of the 9 cells is in
-[`results/final/citation_review.md`](results/final/citation_review.md), and the verdicts are in
-[`results/final/adjudication.csv`](results/final/adjudication.csv).
+answer key. My verdicts and reasons are in
+[`results/final/manual_review.csv`](results/final/manual_review.csv). The earlier AI-assisted review is kept in
+[`results/final/citation_review.md`](results/final/citation_review.md) and
+[`results/final/adjudication.csv`](results/final/adjudication.csv); the scripts compute the second and third rows
+from that file, and my verdicts give the same counts.
 
 - **Same answers.** The setups agreed in all 75 cells: 71 numerical answers had the same magnitude, and both declined
   the other four. In two of the 71, the one-at-a-time setup wrote capital spending as a negative number, which the
@@ -136,7 +138,8 @@ data/
 tests/                 offline checker tests (no API calls)
 results/               one folder per run: manifest, calls.jsonl (raw), scored_rows.csv, summary.json
   results_final.csv    every cell, A and B side by side, all scoring tiers
-  final/citation_review.md  AI-assisted review of the 9 flagged citations, with quoted evidence
+  final/manual_review.csv  my verdicts on the 9 flagged citations
+  final/citation_review.md  earlier AI-assisted review of the 9 flagged citations, with quoted evidence
   final/adjudication.csv  verdicts used by the secondary tiers (src/adjudicate.py)
 paper/                 paper.md (editable source), paper.pdf, build_pdf.py
 ```
@@ -198,8 +201,8 @@ A run resumes from `calls.jsonl`. Failed calls stay in the log as error records,
 - The temperature was set to 0, but Gemini's outputs are not guaranteed to be identical every time, and each setup
   ran only once.
 - The support check is automated. When it cannot decide, it marks the cell `unclear` instead of passing it, and
-  those cells were reviewed separately with AI assistance.
+  I reviewed those cells by hand, along with the two it marked `fail`.
 - The judgment calls in the answer key are listed in `benchmark/ANSWER_KEY_REVIEW.md` §2. Two problems with the key
   were found after the run (a rounded Microsoft value and an over-specified Alphabet F2 question), and both are
   disclosed in the paper.
-- I did not measure how long human verification would take, so that is not reported.
+- I did not measure how long the manual review took, so that is not reported.

@@ -1,0 +1,10 @@
+method,question_id,ticker,verdict,reason,reviewer
+B,F6,GOOGL,Supported,"The operating-income row places $129,039 million under fiscal 2025. The next figure, $16,649 million, is the year-over-year change.",Raeya Kumar
+A,F9,MSFT,Supported,"The share-repurchase program table lists $16,719 million in the fiscal 2026 total amount column. The adjacent 36 million is the number of shares repurchased.",Raeya Kumar
+A,F9,GOOGL,Supported,"The fiscal 2025 total amount for Class A and Class C repurchases is $45,398 million, which rounds to $45.4 billion.",Raeya Kumar
+B,F9,MSFT,Supported,"The fiscal 2026 total is $16,719 million. Both the exact figure and its rounded equivalent of $16.7 billion are accurate.",Raeya Kumar
+B,F9,GOOGL,Supported,"The cited table supports both figures in the answer. The fiscal 2025 Class A row shows $6,501 million, and the total for Class A and Class C is $45,398 million.",Raeya Kumar
+A,T1,AAPL,Supported,"The weighted-average diluted shares row shows 14,720,306 for fiscal 2026. The table heading explicitly states that shares are reported in thousands.",Raeya Kumar
+A,T1,GOOGL,Inconclusive,"The cited excerpt shows 12,230 in the consolidated column for fiscal 2025 diluted shares. The unit ""millions"" appears only in a neighboring excerpt, so the citation alone cannot establish the full answer.",Raeya Kumar
+B,T1,AAPL,Supported,"The fiscal 2026 figure is 14,720,306 thousand shares. Multiplying by 1,000 gives 14,720,306,000 shares, as stated.",Raeya Kumar
+B,T1,GOOGL,Inconclusive,"The cited excerpt identifies the fiscal year, diluted-share calculation, and consolidated count of 12,230. It omits the unit needed to verify 12,230 million shares.",Raeya Kumar

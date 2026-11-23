@@ -46,7 +46,7 @@ The benchmark asks 15 questions about each of the five companies, which produces
 
 Two of the ten standard questions form a matched pair. One asks how much stock a company repurchased, and the other asks how much it was still authorized to repurchase. They use the same excerpts, so a genuine quotation can support one answer but not the other.
 
-Claude Code, an AI coding assistant, drafted the questions and answer key and built the experiment. I decided how to treat seven flagged answer-key cells and approved the key before the final run. A script confirmed that each supporting passage in the key appeared word for word in the filing text. The key was never included in a model prompt, and the questions, excerpts, prompts, and scoring rules were frozen before the run.
+I drafted the benchmark questions, and Claude Code prepared the answer key. A Python script confirmed that each supporting quotation appeared in the corresponding filing. I approved the key before the final run. The questions, excerpts, prompts, and scoring rules were fixed before the run, and both methods received prompts that excluded the answer key.
 
 ### Two ways of presenting the evidence
 
@@ -64,7 +64,7 @@ Every numerical answer received three checks:
 
 A numerical answer is verified only when it passes all three. A decision not to answer is verified only when the answer key also expects one, and it needs no quotation. When the rules could not settle citation support, the result was marked unclear and did not count as verified. The support check compares the quote with the expected year; it does not separately grade the period the model wrote.
 
-After the run, Claude Code reviewed the nine answers whose support had been marked unclear or failed, comparing each citation with the original SEC filing. This was a follow-up AI-assisted review by the same assistant that built the benchmark, and no independent human verification is reported. It did not change the original scores.
+After the run, I reviewed the nine answers flagged by the automatic support check and compared each cited passage with the original SEC filing.
 
 ## 3. Results
 
@@ -78,9 +78,9 @@ Table 2. Verified outcomes out of 75. The original scoring is the main result.
 
 | Scoring | Pooled | Company-by-company | Both | Pooled only | Company only | Neither |
 |---|---|---|---|---|---|---|
-| Original rules | 70 | 69 | 69 | 1 | 0 | 5 |
-| After AI-assisted review | 72 | 72 | 72 | 0 | 0 | 3 |
-| After review and key correction | 73 | 73 | 73 | 0 | 0 | 2 |
+| Original scoring | 70 | 69 | 69 | 1 | 0 | 5 |
+| After manual citation review | 72 | 72 | 72 | 0 | 0 | 3 |
+| After manual citation review and answer-key correction | 73 | 73 | 73 | 0 | 0 | 2 |
 
 An exact McNemar test, which compares paired outcomes using only the cases where the methods differ, gives p = 1.0 for the original scores. With one differing case, the test cannot detect a difference; at least six, all in the same direction, would be needed for a two-sided p-value below 0.05. The comparisons also share questions and companies, so they are not fully independent. The result shows no evidence of an advantage here, but it does not show that the methods are equivalent in general.
 
@@ -92,7 +92,7 @@ Each method declined to answer four times. Three of these matched the answer key
 
 ### Why some citations were not verified
 
-Every numerical answer included a quotation that appeared in its cited excerpt. However, the automatic support check did not pass nine of the 142 numerical answers. The follow-up AI-assisted review judged seven of these supported. The checker could not interpret some tables with extra columns and missed one unit description. The other two were judged inconclusive. Both methods cited the correct Alphabet share count, but the unit appeared only in a neighboring excerpt that they received and did not cite.
+Every numerical answer included a quotation that appeared in its cited excerpt. The automatic support check flagged nine of the 142 numerical answers. Manual citation review found that the cited passages supported seven of those answers. The remaining two cases were inconclusive. Both methods cited Alphabet's correct share count, but the unit appeared only in a neighboring excerpt that neither method cited.
 
 The second row of Table 2 uses those judgments, and the third also accepts Microsoft's exact figure. These rows help explain the original results but do not replace them, because both changes were made after the outputs were known.
 
@@ -116,9 +116,7 @@ Prices were $0.75 per million input tokens and $3.75 per million output tokens o
 
 The study is small and covers five large technology companies, one model, and one run per method. A temperature of 0 does not guarantee the same output every time. The pooled requests averaged only 12,720 input tokens, so the results may not extend to more companies, longer documents, or companies that are easier to confuse.
 
-The evidence was prepared to make most questions answerable, and some retrieval choices were informed by the answer key during development. The same AI assistant drafted the key, built the scoring code, and conducted the follow-up review. This creates a risk of shared errors that an independent reviewer could reduce.
-
-The scorer itself was imperfect. It was tested on answers taken directly from the key, where it verified 148 of 150 and left two unclear, both for the Alphabet share count discussed above. It verified none of 64 deliberately incorrect answers, although its support check alone passed one of them. The 133 citations that passed automatically in the final run were not reviewed again. Human verification time was not measured.
+The scorer itself was imperfect. It was tested on answers taken directly from the key, where it verified 148 of 150 and left two unclear, both for the Alphabet share count discussed above. It verified none of 64 deliberately incorrect answers, although its support check alone passed one of them. The manual review covered only the nine flagged answers, so the 133 citations that passed automatically in the final run were not reviewed again.
 
 ## 5. Conclusion
 

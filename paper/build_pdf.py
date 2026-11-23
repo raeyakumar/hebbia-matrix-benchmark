@@ -36,7 +36,7 @@ CELLB = ParagraphStyle("cellb", parent=CELL, fontName="Times-Bold")
 def inline(t):
     t = t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     t = re.sub(r"`([^`]+)`", r'<font name="Courier">\1</font>', t)
-    t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2" color="#1a4f8b">\1</a>', t)
+    t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2" color="black">\1</a>', t)
     t = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", t)
     return re.sub(r"(?<![\w*])\*([^*]+)\*(?![\w*])", r"<i>\1</i>", t)
 
