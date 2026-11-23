@@ -112,7 +112,7 @@ All four cells passed the correctness, quote and support checks (`results/result
 ```
 src/
   config.py            paths, companies, model settings, prices (everything frozen with the run)
-  fetch_filings.py     EDGAR download + data/filings.csv (URL, filing date, fiscal year end, SHA-256)
+  fetch_filings.py     downloads the exact filings in data/filings.csv and verifies their content
   extract.py           HTML -> text with tables as "cell | cell" rows, units/footnotes kept with tables -> chunks
   select_evidence.py   BM25 evidence selection, once per question -> benchmark/evidence/
   prompts.py           the single shared instruction + JSON schema
@@ -130,7 +130,8 @@ benchmark/
   ANSWER_KEY_REVIEW.md human-readable review of the key
   evidence/            frozen excerpts per question
 data/
-  filings.csv          provenance for each 10-K
+  filings.csv          provenance for each 10-K (URL, filing date, fiscal year end, SHA-256 of original download)
+  filings_content_sha256.csv  SHA-256 of each filing without SEC's changing script tag
   text/, chunks/       extracted text and excerpt units (raw HTML is git-ignored and re-downloadable)
 tests/                 offline checker tests (no API calls)
 results/               one folder per run: manifest, calls.jsonl (raw), scored_rows.csv, summary.json
@@ -154,7 +155,10 @@ cp .env.example .env    # then paste your key after GEMINI_API_KEY= ; .env is gi
 cd src && ../.venv/bin/python check_setup.py
 ```
 
-Rebuild data and evidence (deterministic; SHA-256 of each filing is checked against `data/filings.csv`):
+Rebuild data and evidence. The script downloads the exact filings listed in `data/filings.csv` and checks their content.
+SEC adds one script tag with a changing address to the end of each page, so the check ignores that tag and compares
+everything else with `data/filings_content_sha256.csv`. Any other difference, including a single changed digit, stops
+the download from being accepted. The rest of the rebuild is deterministic:
 
 ```bash
 cd src && ../.venv/bin/python fetch_filings.py && ../.venv/bin/python extract.py && ../.venv/bin/python select_evidence.py practice AAPL,MSFT && ../.venv/bin/python select_evidence.py final
@@ -165,10 +169,10 @@ cd src && ../.venv/bin/python build_answer_key.py && ../.venv/bin/python validat
 ```
 
 Offline tests (checker cases; answers taken from the key = 148 of 150 verified and 2 unclear, which the test
-expects; deliberately wrong answers = 0 of 64 verified):
+expects; deliberately wrong answers = 0 of 64 verified; download check accepts only a changed SEC script tag):
 
 ```bash
-.venv/bin/python tests/test_score.py && .venv/bin/python tests/test_key_oracle.py
+.venv/bin/python tests/test_score.py && .venv/bin/python tests/test_key_oracle.py && .venv/bin/python tests/test_fetch_filings.py
 ```
 
 Paid runs use `gemini-3.8-flash`, thinking level `low`, temperature 0, called over the REST API. Runs refuse to start without a spend cap. The pilot cost an estimated $0.018 (6 calls). The final run cost an estimated $0.383 (90 calls):
